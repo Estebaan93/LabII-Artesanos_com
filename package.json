@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -10,11 +12,27 @@
     "url": "git+https://github.com/Estebaan93/LabII-Artesanos_com.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Esteban Moreira",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Estebaan93/LabII-Artesanos_com/issues"
   },
   "homepage": "https://github.com/Estebaan93/LabII-Artesanos_com#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.1",
+    "mysql2": "^3.14.1",
+    "path": "^0.12.7",
+    "pug": "^3.0.3",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
 }
