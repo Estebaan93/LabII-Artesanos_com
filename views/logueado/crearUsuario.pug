@@ -1,0 +1,22 @@
+//-views/logueado/crearUsuario.pug
+
+doctype html
+html
+  head
+    title Crear usuario
+  body
+    h1 Registro de usuario
+    form(action="/usuarios" method="post")
+      label Nombre:
+      input(type="text" name="nombre" placeolder="Nombre" required)
+
+      label Apellido:
+      input(type="text" name="apellido" required)
+
+      label Email:
+      input(type="email" name="email" required)
+
+      label Contraseña:
+      input(type="password" name="password" required)
+
+      button(type="submit") Registrar

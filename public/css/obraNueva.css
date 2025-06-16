@@ -1,0 +1,135 @@
+.div-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.modal-subir-obra {
+  background: rgba(255, 255, 255, 0.95); /* blanco semitransparente */
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  padding: 25px 30px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.modal-subir-obra button.cerrar {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  color: #888;
+  transition: color 0.25s ease;
+}
+.modal-subir-obra button.cerrar:hover {
+  color: #333;
+}
+
+.modal-subir-obra h2 {
+  margin: 0 0 15px 0;
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #222;
+}
+
+/* Form general */
+#form-subir {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px 20px;
+  align-items: center;
+}
+
+/* Cada label e input juntos para que label quede arriba */
+#form-subir label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+/* Inputs y selects con ancho completo en su grid cell */
+#form-subir input[type="text"],
+#form-subir input[type="file"],
+#form-subir input[type="url"],
+#form-subir select {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 2px solid #cbd5e1; /* gris azulado claro */
+  border-radius: 8px;
+  box-sizing: border-box;
+  background: #f9fafb;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline-offset: 2px;
+  outline-color: transparent;
+}
+
+#form-subir input[type="text"]:focus,
+#form-subir input[type="file"]:focus,
+#form-subir input[type="url"]:focus,
+#form-subir select:focus {
+  border-color: #14b8a6; /* teal */
+  box-shadow: 0 0 6px rgba(20, 184, 166, 0.5);
+  background: #fff;
+  outline-color: #14b8a6;
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: 2px;
+}
+
+/* Ocultar input amigos personalizados */
+#amigos-personalizados {
+  display: none;
+}
+
+/* Botón submit centrado y con tamaño contenido */
+#form-subir button[type="submit"] {
+  grid-column: 1 / -1; /* Ocupa toda la fila */
+  max-width: 200px;
+  margin: 10px auto 0 auto;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px 12px rgba(20, 184, 166, 0.5);
+  cursor: pointer;
+  transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+#form-subir button[type="submit"]:hover {
+  background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+  box-shadow: 0 8px 18px rgba(20, 184, 166, 0.7);
+  transform: translateY(-2px);
+}
+
+#form-subir button[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(20, 184, 166, 0.4);
+}

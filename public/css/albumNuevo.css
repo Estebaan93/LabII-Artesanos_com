@@ -1,0 +1,106 @@
+/* Fondo oscuro translúcido */
+.div-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 1rem;
+}
+
+/* Modal centrado */
+.modal-crear-album {
+  position: relative; /* para posicionar el botón cerrar dentro */
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  animation: fadeIn 0.25s ease-in-out;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Botón cerrar modal (la cruz en esquina) */
+.cerrar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1.1rem;   /* tamaño pequeño */
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: #666;
+  padding: 0;
+  line-height: 1;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  transition: color 0.3s ease;
+}
+
+.cerrar:hover {
+  color: #6c63ff;  /* color destacado al pasar el mouse */
+}
+
+/* Título */
+.modal-crear-album h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: #2c2c2c;
+}
+
+/* Input */
+.modal-crear-album input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  transition: border-color 0.3s;
+}
+
+.modal-crear-album input[type="text"]:focus {
+  outline: none;
+  border-color: #6c63ff;
+  background-color: #fff;
+}
+
+/* Botón moderno para el submit (solo afecta al submit, no al cerrar) */
+.modal-crear-album form > button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #6c63ff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-crear-album form > button[type="submit"]:hover {
+  background-color: #5548e0;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

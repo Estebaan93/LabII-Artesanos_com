@@ -1,0 +1,62 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Editar Perfil
+    link(rel="stylesheet", href="/css/editarPerfil.css")
+    script.
+      const opcionesFormacion = !{JSON.stringify(opcionesFormacion)};
+    script(src="/js/editarPerfil.js" defer)
+
+  body
+    h1 ARTESANOS.COM
+    .perfil-container
+      button.cerrar(type="button", aria-label="Cerrar", onclick="window.location.href='/home'") ×
+      h2 Editar perfil
+
+      form(action="/perfil/editar", method="post" id="formEditarPerfil")
+        label(for="nombre") Nombre:
+        input#nombre(type="text", name="nombre", required, value=usuario.nombre)
+
+        label(for="apellido") Apellido:
+        input#apellido(type="text", name="apellido", required, value=usuario.apellido)
+
+        label(for="email") Email:
+        input#email(type="email", name="email", required, value=usuario.email)
+
+        label(for="avatarUrl") URL Avatar:
+        input#avatarUrl(type="text", name="avatarUrl", value=usuario.avatarUrl)
+
+        hr
+
+        h3 Formaciones
+
+        #contenedorFormaciones
+          each formacion, i in formacionesUsuario
+            .formacion-item(data-index=i)
+              label(for=`formaciones[${i}][tipo]`) Formación:
+              select(name=`formaciones[${i}][tipo]`, required)
+                option(value="") -- Seleccione una formación --
+                each tipo in opcionesFormacion
+                  if tipo === formacion.tipo_formacion
+                    option(value=tipo selected) #{tipo}
+                  else
+                    option(value=tipo) #{tipo}
+
+              label(for=`formaciones[${i}][fecha]`) Fecha:
+              input(type="date", name=`formaciones[${i}][fecha]`, required, value=formacion.fecha)
+
+              label(for=`formaciones[${i}][institucion]`) Institución:
+              input(type="text", name=`formaciones[${i}][institucion]`, required, value=formacion.institucion)
+
+              label(for=`formaciones[${i}][descripcion]`) Descripción:
+              textarea(name=`formaciones[${i}][descripcion]`) #{formacion.descripcion}
+
+              button(type="button", class="btn-eliminar-formacion") Eliminar
+
+        button(type="button", id="btnAgregarFormacion") + Agregar formación
+
+        hr
+
+        button(type="submit") Guardar cambios

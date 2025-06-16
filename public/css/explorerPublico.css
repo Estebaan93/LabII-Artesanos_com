@@ -1,0 +1,174 @@
+/* --- General --- */
+h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* --- Portafolio Público Individual --- */
+
+.imagenes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
+  gap: 18px;
+  padding: 0 10px;
+  margin-top: 1.5rem;
+}
+
+.imagen-clickable {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 2px solid transparent;
+}
+
+.imagen-clickable:hover,
+.imagen-clickable:focus {
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  border-color: #4f46e5; /* Indigo-600 */
+  outline: none;
+}
+
+/* Mensajes de texto */
+p {
+  font-style: italic;
+  color: #666;
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 1.1rem;
+  user-select: none;
+}
+
+/* Modal Imagen */
+#modal-imagen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1500;
+  padding: 20px;
+}
+
+#modal-imagen > div.modal-contenido {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 460px;
+  width: 100%;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  padding: 30px 35px;
+  position: relative;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#cerrar-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #444;
+  transition: color 0.3s ease;
+}
+
+#cerrar-modal:hover {
+  color: #1e40af; /* Indigo-800 */
+}
+
+#modal-titulo {
+  margin-top: 1.2rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #222;
+}
+
+#modal-usuario {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* --- Lista de Portafolios Públicos --- */
+
+.portafolios-lista {
+  list-style: none;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.portafolio-item {
+  background: #f9fafb;
+  padding: 16px 22px;
+  border-radius: 14px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.portafolio-item:hover {
+  background-color: #eef2ff; /* Indigo-100 */
+  box-shadow: 0 10px 25px rgba(79,70,229,0.2);
+}
+
+.portafolio-item a {
+  text-decoration: none;
+  color: #3730a3; /* Indigo-800 */
+  font-weight: 600;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 14px;
+  transition: color 0.3s ease;
+}
+
+.portafolio-item a:hover {
+  color: #4f46e5; /* Indigo-600 */
+}
+
+.portafolio-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+  flex-shrink: 0;
+}
+
+/* Responsive */
+
+@media (max-width: 480px) {
+  .imagenes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+  }
+
+  .portafolio-item a {
+    font-size: 1rem;
+  }
+
+  #modal-imagen > div.modal-contenido {
+    max-width: 90vw;
+    padding: 20px 25px;
+  }
+}

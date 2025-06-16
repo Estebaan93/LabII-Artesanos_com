@@ -1,0 +1,10 @@
+//-views/logueado/estadisticas
+extends ../layouts/logueado
+
+block content
+  h2 Estadísticas de tu perfil
+  ul
+    li Álbumes creados: #{albumes}
+    li Imágenes subidas: #{imagenes}
+    li Comentarios recibidos: #{comentarios}
+  a(href="/home") Volver al inicio

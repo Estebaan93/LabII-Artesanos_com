@@ -1,0 +1,44 @@
+extends ../layouts/logueado
+
+block content
+  link(rel="stylesheet", href="/css/obraNueva.css")
+
+  .div-fondo
+    .modal-subir-obra
+      button.cerrar(type="button", aria-label="Cerrar") ×
+      h2 Subir nueva obra a este álbum
+
+      form#form-subir(action=`/albumes/${id_album}/obras`, method="post", enctype="multipart/form-data")
+
+        label(for="titulo") Título:
+        input#titulo(type="text", name="titulo", required)
+
+        label(for="imagen_local") Archivo local:
+        input#imagen_local(type="file", name="imagen_local", accept="image/*")
+
+        label(for="imagen_url") o URL de la imagen:
+        input#imagen_url(type="url", name="imagen_url", placeholder="https://...")
+
+        label(for="visibilidad") Visibilidad:
+        select#visibilidad(name="visibilidad", required)
+          each vis in visibilidades
+            option(value=vis selected=(vis === 'personal'))
+              if vis === 'personal'
+                | Solo yo
+              else if vis === 'amigos'
+                | Amigos
+              else if vis === 'mejores_amigos'
+                | Mejores amigos
+              else if vis === 'publico'
+                | Público
+              else if vis === 'personalizada'
+                | Personalizada
+              else
+                = vis
+
+        input#amigos-personalizados(type="hidden", name="amigos")
+
+        button(type="submit") Subir
+
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+    script(src="/js/subirObra.js")

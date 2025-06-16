@@ -1,0 +1,56 @@
+//-views/layouts/layout.pug
+
+doctype html
+html
+  head
+    title Artesanos.com - #{title}
+    link(rel="stylesheet", href="/css/style.css")
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+
+  body
+    header
+      h1 Artesanos.com
+      nav
+        a(href="/explorar") Explorar
+        a(href="#" id="btn-login") Login
+
+    main
+      block content
+
+    footer
+      p © #{new Date().getFullYear()} Artesanos.com - Todos los derechos reservados.
+    div#overlay(style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.9); z-index: 900;")
+
+    // Modal de Login
+    div#modal-login
+      div.modal-content
+        h2 Iniciar Sesión
+        form(action="/login" method="post")
+          input(type="email" name="email" placeholder="Correo electrónico" required)
+          input(type="password" name="password" placeholder="Contraseña" required)
+          button(type="submit") Entrar
+        p ¿No tienes cuenta?
+        button(id="btn-register") Registrarse
+      button(id="btn-close") Cerrar
+      button(id="btn-forgot-password") Recuperar contraseña
+
+    // Modal de registro
+    div#modal-registrarse(style="display:none")
+      div.modal-content
+        span#btn-reg(style="cursor:pointer; float:right")
+        h2 Crear cuenta
+        form#form-registro(action="/usuarios" method="POST" enctype="multipart/form-data")
+          input(type="text" name="nombre" placeholder="Nombre" required)
+          input(type="text" name="apellido" placeholder="Apellido" required)
+          input(type="email" name="email" placeholder="Correo electronico" required)
+          input(type="password" name="password" placeholder="Contraseña" required)
+          input(type="file" name="img_perfil" accept="image/*")
+          input(type="hidden" name="estado" value="1")
+          button(type="submit") Crear cuenta
+
+    // Scripts al final del body
+    script.
+       window.usuarioId = null;
+    script(src="/socket.io/socket.io.js")
+    script(src="/js/notificaciones.js")
+    script(src="/js/layoutScript.js")

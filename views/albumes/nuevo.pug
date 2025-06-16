@@ -1,0 +1,13 @@
+extends ../layouts/logueado
+
+block content
+  link(rel="stylesheet", href="/css/albumNuevo.css")
+
+  .div-fondo
+    .modal-crear-album
+      button.cerrar(type="button", aria-label="Cerrar") ×
+      h2 Crear Álbum
+      form(action="/albumes" method="POST")
+        input(type="text" name="titulo" placeholder="Título del álbum" required)
+        button(type="submit") Crear álbum
+          script(src="/js/albumIndex.js")

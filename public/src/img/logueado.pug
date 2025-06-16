@@ -1,0 +1,58 @@
+//-views/layouts/logueado.pug
+
+doctype html
+html
+  head
+    title Artesanos - #{title}
+    link(rel="stylesheet" href="/css/style.css")
+    link(rel="stylesheet" href="/css/notificaciones.css")
+    block headExtra
+  body
+    header
+      h1 Bienvenido, #{usuario.nombre}
+      nav
+        a(href="/home") Inicio
+        .dropdown
+          a(href="/albumes") Álbumes
+          u.menu
+            li: a(href="/albumes") Ver álbumes
+            li: a(href="/albumes/nuevo") Crear álbum
+        a(href="/explorar") Explorar
+        form#formBuscar
+          input(type="text" name="nombre" id="inputNombre" placeholder="Buscar personas...")
+          button(type="submit") Buscar
+
+          div#resultados
+
+
+        // Panel de notificaciones
+        .notificaciones-container
+          span#icono-notificacion 🔔
+          span#contador-notificaciones 0
+          div#panel-notificaciones
+            ul#lista-notificaciones
+              li No hay notificaciones nuevas.
+
+        //Menu desplegable
+        .perfil-dropdown
+          .avatar-container
+            img.avatar(src=`/img/perfiles/${usuario.avatarUrl || 'default.png'}` alt="avatar")
+            ul.menu
+              li: a(href="/perfil") Perfil
+              li: a(href="/estadisticas") Estadisticas
+              li: a(href="/configuracion") Configuracion
+              li: a(href="#" id="btn-logout") Cerrar sesión
+
+    main
+      block content
+    footer
+      p © #{new Date().getFullYear()} Artesanos.com
+    script.
+      window.usuarioId = !{JSON.stringify(usuario.id_usuario)};
+    script(src="/socket.io/socket.io.js") 
+    script(src="/js/notificaciones.js")
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+    script(src="/js/layoutScript.js")
+    script(src="/js/solicitudes.js")
+
+

@@ -1,0 +1,19 @@
+//-views/layouts/noLogueado.pug
+doctype html
+html
+  head
+    title Artesanos - #{title}
+    block head
+    link(rel= "stylesheet" href="/css/style.css")
+  body
+    header
+      h1 Bienvenido
+      nav
+        a(href="/home") Inicio
+        
+    main
+      block content
+
+      footer
+        p © #{new Date().getFullYear()} Artesanos.com
+      script(src="/js/layoutScript.js")  

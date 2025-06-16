@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1 Solicitudes de amistad
+
+  if solicitudes && solicitudes.length
+    each solicitud in solicitudes
+      .solicitud
+        p
+          strong= solicitud.nombre + ' ' + solicitud.apellido
+          |  te ha enviado una solicitud de amistad.
+
+        form(method="post", action="/solicitudes/responder")
+          input(type="hidden", name="id_usuario", value=solicitud.id_usuario)
+          input(type="hidden", name="accion", value="aceptar")
+          button(type="submit").btn.btn-success Aceptar
+
+        form(method="post", action="/solicitudes/responder", style="display:inline")
+          input(type="hidden", name="id_usuario", value=solicitud.id_usuario)
+          input(type="hidden", name="accion", value="rechazar")
+          button(type="submit").btn.btn-danger Rechazar
+  else
+    p No tenés solicitudes pendientes.

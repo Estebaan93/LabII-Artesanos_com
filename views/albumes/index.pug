@@ -1,0 +1,21 @@
+extends ../layouts/logueado
+
+block headExtra
+  link(rel="stylesheet", href="/css/albumIndex.css")
+  script(src="/js/albumIndex.js")
+
+block content
+ 
+  a(href="/albumes/nuevo").btn.btn-agregar Crear álbum
+  .albums-grid
+    each album in albumes
+      .album-card
+        a(href=`/albumes/${album.id_album}`)
+          if album.portada && album.portada.startsWith('http')
+            img(src=album.portada alt="Portada álbum")
+          else if album.portada
+            img(src=`/img/obras/${album.portada}` alt="Portada álbum")
+          else
+            img(src="/img/sin-obra.jpg" alt="Sin obras")
+          h3 #{album.titulo}
+          p Creado: #{album.fecha.toISOString().slice(0,10)}

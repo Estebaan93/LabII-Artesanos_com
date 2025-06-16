@@ -1,0 +1,35 @@
+//--views/logueado/perfil.pug
+extends ../layouts/logueado
+
+block content
+  h2 Perfil de Usuario
+
+  if usuario.img_perfil
+    img(src=`/uploads/${usuario.img_perfil}` alt="Foto de perfil" width="150")
+
+  p
+    strong Nombre:
+    | #{usuario.nombre} #{usuario.apellido}
+
+  p
+    strong Email:
+    | #{usuario.email}
+
+  p
+    strong Estado:
+    | #{usuario.estado == 1 ? 'Activo' : 'Inactivo'}
+
+  p
+  strong Fecha de registro:
+  | #{usuario.fecha.toLocaleDateString('es-AR')}
+
+
+  p
+    strong Formación:
+    | #{usuario.formacion || 'No especificada'}
+
+  p
+    strong Intereses:
+    | #{usuario.intereses || 'No especificados'}
+
+  a(href="/home") ← Volver al inicio

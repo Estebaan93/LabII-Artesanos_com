@@ -1,0 +1,18 @@
+extends ../layouts/logueado
+
+block content
+  h2 Notificaciones
+
+  if notificaciones.length === 0
+    p No tienes notificaciones nuevas.
+
+  ul.list-group
+    each n in notificaciones
+      li.list-group-item(data-id-notificacion=n.id_notificacion data-id-solicitud=n.id_solicitud)
+        if n.tipo === 'amistad'
+          p Solicitud de amistad de #{n.remitente}
+          button.btn-aceptar.btn.btn-success.btn-sm(type="button" data-id-solicitud=n.id_solicitud) Aceptar
+          button.btn-rechazar.btn.btn-danger.btn-sm(type="button" data-id-solicitud=n.id_solicitud style="margin-left: 5px;") Rechazar
+        else if n.tipo === 'comentario'
+          p Nuevo comentario de #{n.remitente} en tu imagen.
+          button.btn-marcar-leida.btn.btn-outline-secondary.btn-sm(type="button" data-id-notificacion=n.id_notificacion) Marcar como leída

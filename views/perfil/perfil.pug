@@ -1,0 +1,35 @@
+extends ../layouts/logueado
+
+block content
+  link(rel="stylesheet", href="/css/perfil.css")
+  script(src="/js/editarPerfil.js")
+  .perfil-container
+    button.cerrar(type="button", aria-label="Cerrar", onclick="window.location.href='/home'") ×
+    .perfil-header
+      img.perfil-avatar(src=usuario.avatarUrl alt="Avatar")
+      h2= usuario.nombre + ' ' + usuario.apellido
+      p Email: #{usuario.email}
+      p Fecha de registro: #{usuario.fecha.toLocaleDateString('es-AR')}
+
+    .perfil-section
+      h3 Formación
+      if formaciones.length
+        ul
+          each f in formaciones
+            li
+              strong= f.tipo_formacion + ': '
+              | #{f.institucion} (#{new Date(f.fecha).toLocaleDateString('es-AR')})
+              if f.descripcion
+                p= f.descripcion
+      else
+        p No hay formación registrada.
+
+    .perfil-section
+      h3 Intereses
+      if intereses.length
+        ul
+          each i in intereses
+            li= i.tipo
+      else
+        p No hay intereses registrados.
+        button.btn-editar(onclick="window.location.href='/perfil/editar'") Editar perfil

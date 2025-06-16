@@ -1,0 +1,40 @@
+extends ../layouts/logueado
+
+block content
+  h2 Usuarios disponibles para solicitar amistad
+  if usuarios.length === 0
+    p No hay usuarios disponibles.
+  else
+    ul.lista-usuarios
+      each u in usuarios
+        li.usuario-item
+          img(src=`/img/perfiles/${u.avatarUrl || 'default.png'}` alt="Avatar" width="40" height="40" style="border-radius:50%; margin-right:10px;")
+          strong #{u.nombre} #{u.apellido}
+          button.enviar-solicitud(data-id=u.id_usuario) Enviar solicitud
+
+block scripts
+  script.
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('button.enviar-solicitud').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id_destinatario = btn.dataset.id;
+          try {
+            const res = await fetch('/solicitudes', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id_destinatario }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+              alert(data.mensaje);
+              btn.disabled = true;
+              btn.textContent = 'Solicitud enviada';
+            } else {
+              alert(data.error || 'Error enviando solicitud');
+            }
+          } catch {
+            alert('Error de conexión');
+          }
+        });
+      });
+    });

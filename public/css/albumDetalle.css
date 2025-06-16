@@ -1,0 +1,61 @@
+/* public/css/albumDetalle.css */
+
+/* Modal background */
+#modal-obra {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal content box */
+#modal-obra > div {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  position: relative;
+  width: 400px;
+  max-width: 90vw;
+}
+
+/* Close button */
+#cerrar-modal {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Modal image */
+#modal-imagen {
+  width: 100%;
+  border-radius: 8px;
+}
+.comentarios {
+  margin-top: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+  padding-top: 5px;
+}
+.comentario {
+  padding: 3px 0;
+  font-size: 0.9em;
+  border-bottom: 1px solid #eee;
+}
+form.form-comentario textarea {
+  width: 100%;
+  resize: vertical;
+}
+form.form-comentario button {
+  margin-top: 4px;
+}

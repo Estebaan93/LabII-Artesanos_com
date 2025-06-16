@@ -1,0 +1,33 @@
+extends ../layouts/noLogueado
+
+block head
+  link(rel="stylesheet", href="/css/explorerPublico.css")
+block content
+  h1 Portafolio público de #{usuario.nombre} #{usuario.apellido}
+
+  if albumes.length === 0
+    p No hay álbumes públicos para mostrar.
+  else
+    each album in albumes
+      h2= album.titulo
+      if !album.imagenes || album.imagenes.length === 0
+        p Sin imágenes públicas.
+      else
+        .imagenes-grid
+          each img in album.imagenes
+            - const srcImg = img.imagen.startsWith('http') ? img.imagen : `/img/obras/${img.imagen}`
+            img.imagen-clickable(
+              src=srcImg,
+              alt=img.titulo,
+              data-usuario=`${usuario.nombre} ${usuario.apellido}`,
+              data-titulo=img.titulo
+            )
+
+  // Modal para mostrar info de la imagen
+  div#modal-imagen
+    div.modal-contenido
+      button#cerrar-modal ×
+      h3#modal-titulo
+      p#modal-usuario
+
+  script(src="/js/modalImagen.js")

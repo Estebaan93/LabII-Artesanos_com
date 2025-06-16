@@ -1,0 +1,27 @@
+//-views/logueado/listarUsuario.pug
+doctype html
+html
+  head
+    title Lista de Usuarios
+    link(rel="stylesheet" href="/css/style.css") 
+  body
+    h1 Lista de Usuarios
+    table(border="1")
+      thead
+        tr
+          th ID
+          th Nombre
+          th Apellido
+          th Email
+          th Estado
+          th Perfil
+      tbody
+        each usuario in usuarios
+          tr
+            td= usuario.id_usuario
+            td= usuario.nombre
+            td= usuario.apellido
+            td= usuario.email
+            td= usuario.estado ? 'Activo' : 'Inactivo'
+            td 
+              a(href=`/usuarios/${usuario.id_usuario}`) Ver Perfil

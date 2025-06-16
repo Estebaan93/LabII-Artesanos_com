@@ -1,0 +1,20 @@
+extends ../layouts/noLogueado
+
+block head
+  link(rel="stylesheet", href="/css/explorerPublico.css")
+
+block content
+  h1 Portafolios Públicos
+
+  if !usuarios || usuarios.length === 0
+    p No hay portafolios públicos disponibles.
+  else
+    ul.portafolios-lista
+      each usuario in usuarios
+        li.portafolio-item
+          a(href=`/portafolio/${usuario.id_usuario}`)
+            img(
+              src=`/img/perfiles/${usuario.avatarUrl || 'default.png'}`,
+              alt=`Avatar de ${usuario.nombre} ${usuario.apellido}`,
+            )
+            | #{usuario.nombre} #{usuario.apellido}

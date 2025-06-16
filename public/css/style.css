@@ -1,0 +1,495 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: url('/src/img/artesanoIndex.jpg');
+  background-size: cover;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Oculta scroll horizontal */
+  min-height: 100vh;
+  width: 100vw;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #333;
+  color: white;
+  gap: 20px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: 40px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 0;
+}
+
+.home-contenedor {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 3rem 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  backdrop-filter: saturate(180%) blur(15px);
+  -webkit-backdrop-filter: saturate(180%) blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #4a3c1a;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.hero-texto {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero-texto h1 {
+  font-size: 2.5rem;
+  color: #5c3d22;
+  margin-bottom: 1rem;
+}
+
+.hero-texto p {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 2rem;
+}
+
+.btn-explorar {
+  background: #8c6239;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn-explorar:hover {
+  background: #704d2b;
+}
+
+.galeria-destacados h2 {
+  text-align: center;
+  color: #5c3d22;
+  margin-bottom: 2rem;
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.tarjeta {
+  background: #fffdf9;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+}
+
+.tarjeta img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.tarjeta h3 {
+  margin: 0.5rem 0;
+  color: #5c3d22;
+}
+
+.tarjeta p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.btn-ver {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 8px 16px;
+  background: #e0b084;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.btn-ver:hover {
+  background: #c79566;
+}
+
+form#formBuscar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+form#formBuscar input {
+  padding: 4px 7px;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  outline: none;
+  width: 200px;
+}
+
+form#formBuscar input:focus {
+  border-color: #8daac7;
+  box-shadow: 0 0 5px rgba(51, 153, 255, 0.6);
+}
+
+form#formBuscar button {
+  padding: 4px 7px;
+  border: none;
+  background-color: #889aad;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  min-width: 70px;
+}
+
+form#formBuscar button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 86, 179, 0.5);
+}
+
+footer {
+  margin-top: auto;
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 0px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+/* ================= Modal Login ================= */
+
+#modal-login {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.5);
+  padding: 16px 24px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-radius: 10px;
+  width: 360px;
+  max-height: 320px;
+  overflow: visible;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-content h2 {
+  margin: 0 0 6px 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #333;
+  text-align: center;
+}
+
+.modal-content form input[type="email"],
+.modal-content form input[type="password"] {
+  padding: 6px 8px;
+  border: 1px solid #a0aec0;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f9fafb;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 8px;
+}
+
+.modal-content form input[type="email"]:focus,
+.modal-content form input[type="password"]:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 5px rgba(66, 153, 225, 0.5);
+  background-color: #fff;
+}
+
+.modal-content form button[type="submit"] {
+  padding: 8px 0;
+  background: linear-gradient(135deg, #3182ce, #63b3ed);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 4px 8px rgba(49, 130, 206, 0.5);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.modal-content form button[type="submit"]:hover {
+  background: linear-gradient(135deg, #2c5282, #4299e1);
+  box-shadow: 0 6px 12px rgba(44, 82, 130, 0.7);
+}
+
+#btn-register,
+#btn-close,
+#btn-forgot-password {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  background-color: #a0aec0;
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
+  user-select: none;
+}
+
+#btn-register:hover,
+#btn-close:hover,
+#btn-forgot-password:hover {
+  background-color: #718096;
+  color: white;
+}
+
+/* ================= Modal Registro ================= */
+
+#modal-registrarse {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.5);
+  padding: 16px 24px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-radius: 10px;
+  width: 360px;
+  max-height: 320px;
+  overflow: visible;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px;
+}
+
+#modal-registrarse .modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#modal-registrarse .modal-content h2 {
+  margin: 0 0 6px 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #333;
+  text-align: center;
+}
+
+#modal-registrarse .modal-content form input[type="text"],
+#modal-registrarse .modal-content form input[type="email"],
+#modal-registrarse .modal-content form input[type="password"] {
+  padding: 6px 8px;
+  border: 1px solid #a0aec0;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f9fafb;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 8px;
+}
+
+#modal-registrarse .modal-content form input:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 5px rgba(66, 153, 225, 0.5);
+  background-color: #fff;
+}
+
+#modal-registrarse .modal-content form button[type="submit"] {
+  padding: 8px 0;
+  background: linear-gradient(135deg, #38a169, #68d391);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 4px 8px rgba(56, 161, 105, 0.5);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#modal-registrarse .modal-content form button[type="submit"]:hover {
+  background: linear-gradient(135deg, #2f855a, #48bb78);
+  box-shadow: 0 6px 12px rgba(47, 133, 90, 0.7);
+}
+
+#modal-registrarse #btn-volver-login {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  background-color: #a0aec0;
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
+  user-select: none;
+}
+
+#modal-registrarse #btn-volver-login:hover {
+  background-color: #718096;
+  color: white;
+}
+
+/* ================= Avatar y dropdowns ================= */
+
+.avatar-container,
+.perfil-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.perfil-dropdown .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.dropdown .menu,
+.perfil-dropdown .menu {
+  display: none;
+  position: absolute;
+  background: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 2;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dropdown:hover .menu,
+.avatar-container:hover .menu {
+  display: block;
+}
+
+.dropdown .menu li a,
+.perfil-dropdown .menu li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+  background-color: #fff;
+  
+}
+
+.dropdown .menu li a:hover,
+.perfil-dropdown .menu li a:hover {
+  background-color: #f0f0f0;
+}
+
+/* ================= Álbum y Obras ================= */
+
+.album-grid,
+.obras-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.album-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 1.2rem;
+  width: 220px;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.album-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.album-card h3 {
+  margin: 0 0 0.7rem 0;
+}
+
+.album-card a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+  height: 100%;
+}
+
+.obra-card {
+  background: rgba(250, 250, 250, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09);
+  padding: 0.9rem;
+  width: 200px;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.obra-card img {
+  border-radius: 4px;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  max-height: 120px;
+}

@@ -1,6 +1,41 @@
-//-views/index.pug
+//- views/index.pug
 extends layouts/layout.pug
 
 block content
-  h2 Bienvenido a Artesanos.com
-  p Explora y comparte tus creaciones con el mundo.
+  - var artesanias = [{ nombre: 'Maceta pintada', imagen: '/src/img/maceta.jpg' }, { nombre: 'Collar de cerámica', imagen: '/src/img/collar.jpg' }, { nombre: 'Cuadro bordado', imagen: '/src/img/cuadro.jpg' }]
+
+  .home-contenedor
+    .hero-texto
+      h1 Encuentra creaciones únicas hechas a mano
+      p Conectamos a los artesanos con personas que valoran lo hecho con el corazón.
+      a.btn-explorar(href="#") Explorar Artesanías
+
+
+    .galeria-destacados
+      h2 Artesanías destacadas
+      .tarjetas
+        each item in artesanias
+          .tarjeta
+            img(src=item.imagen, alt=item.nombre)
+            h3= item.nombre
+            p Artesanía única hecha a mano con amor.
+            a.btn-ver(href="#") Ver más
+
+    .eventos-section
+      h2 Próximos Eventos
+      .tarjetas
+        each item in ['Joyería Nivel 1', 'Reciclado con papel maché', 'Bordado Chino']
+          .tarjeta
+            img(src='/src/img/calendario.jpg', alt=item)
+            h3= item
+            p Los mejores eventos en un solo lugar
+            a.btn-ver(href="#") Ver más
+
+    .conecta-artesanos
+      h2 Conectá con artesanos de toda la región
+      .tarjetas
+        .tarjeta
+          img(src='/src/img/giphy.gif', alt='Mapa interactivo de artesanos') 
+          h3 Comunidad Artesanal
+          p Unite a una red de creadores que comparten su arte y cultura.
+          a.btn-ver(href="#") Conectarse        

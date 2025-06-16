@@ -1,0 +1,10 @@
+//-views/logueado/index.js
+doctype html
+html
+  head
+    title lista de usuarios
+  body
+    h1 Usuarios registrados
+    ul
+      each usuario in usuarios
+        li #{usuario.nombre} #{usuario.apellido} - #{usuario.email}
