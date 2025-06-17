@@ -40,6 +40,10 @@ nav a {
   margin-left: 0;
 }
 
+.btn btn-agregar{
+  text-decoration: none;
+}
+
 .home-contenedor {
   background: rgba(255, 255, 255, 0.25);
   padding: 3rem 2rem;
