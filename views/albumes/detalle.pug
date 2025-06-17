@@ -5,7 +5,7 @@ block headExtra
 
 block content
   h2 Álbum: #{album.titulo}
-  a(href=`/albumes/${album.id_album}/obras/nueva`) Subir obra
+  a.btn-subir(href=`/albumes/${album.id_album}/obras/nueva`) Subir obra
 
   if imagenes.length
     .obras-grid

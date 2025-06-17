@@ -44,6 +44,10 @@ nav a {
   text-decoration: none;
   color: white;
 }
+.btn-subir{
+  text-decoration: none;
+  color: white;
+}
 
 .home-contenedor {
   background: rgba(255, 255, 255, 0.25);
