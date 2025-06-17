@@ -1,7 +1,5 @@
 // controllers/solicitudController.js
-import {
-  insertarSolicitudAmistad, actualizarSolicitudAmistadPorId, obtenerUsuariosDeSolicitud, obtenerEstadoAmistad
-} from "../models/solicitudModel.js";
+import {insertarSolicitudAmistad, actualizarSolicitudAmistadPorId, obtenerUsuariosDeSolicitud, obtenerEstadoAmistad} from "../models/solicitudModel.js";
 
 import { insertarNotificacionAmistad } from "../models/notificacionModel.js";
 
