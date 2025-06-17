@@ -53,7 +53,7 @@ export function emitirNotificacion(userId, payload) {
 
 app.use(cors());
 dotenv.config();
-const PORT = process.env.PORT || 3000;
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Configurar Pug como motor de vistas
@@ -93,6 +93,7 @@ app.use('/perfil', perfilRoutes);
 
 
 // Iniciar servidor
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
