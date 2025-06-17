@@ -1,14 +1,9 @@
 // routes/notificacionRoutes.js 
 import express from 'express';
-import {
-  listarNotificaciones,
-  marcarLeida,
-  listarNotificacionesAPI
+import {listarNotificaciones, marcarLeida, listarNotificacionesAPI
 } from '../controllers/notificacionController.js';
 
-import {
-  responderSolicitudAmistad
-} from '../controllers/solicitudController.js'; // 👈 nuevo controlador que ahora agregamos
+import {responderSolicitudAmistad} from '../controllers/solicitudController.js'; //nuevo controlador que ahora agregamos
 
 const router = express.Router();
 
@@ -23,7 +18,7 @@ router.get('/notificaciones', soloLogueados, listarNotificaciones);
 router.post('/notificaciones/:id_notificacion/leida', soloLogueados, marcarLeida);
 router.get('/notificaciones/api', soloLogueados, listarNotificacionesAPI);
 
-// ✅ NUEVA RUTA: aceptar/rechazar solicitud de amistad
+//NUEVA RUTA: aceptar/rechazar solicitud de amistad
 router.post('/solicitudes/responder', soloLogueados, responderSolicitudAmistad);
 
 

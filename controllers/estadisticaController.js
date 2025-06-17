@@ -1,9 +1,6 @@
 //controllers/estadisticasController.js
 import { 
-  contarAlbumesUsuario, 
-  contarImagenesUsuario, 
-  contarComentariosRecibidos 
-} from '../models/estadisticaModel.js';
+  contarAlbumesUsuario, contarImagenesUsuario, contarComentariosRecibidos} from '../models/estadisticaModel.js';
 
 export const mostrarEstadisticasPerfil = async (req, res) => {
   try {

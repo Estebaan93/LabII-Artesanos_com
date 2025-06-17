@@ -1,8 +1,5 @@
 import {
-  obtenerDatosUsuario,
-  obtenerFormacionesUsuario,
-  obtenerInteresesUsuario,
-  actualizarDatosUsuario
+  obtenerDatosUsuario, obtenerFormacionesUsuario, obtenerInteresesUsuario, actualizarDatosUsuario
 } from '../models/perfilModel.js';
 
 export const verPerfil = async (req, res) => {

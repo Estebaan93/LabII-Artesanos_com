@@ -1,5 +1,4 @@
-
-////index.js
+//index.js
 import express from 'express';
 import { fileURLToPath } from 'url';
 import usuarioRoutes from './routes/usuarioRoutes.js';

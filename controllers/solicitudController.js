@@ -1,16 +1,12 @@
 // controllers/solicitudController.js
 import {
-  insertarSolicitudAmistad,
-  actualizarSolicitudAmistadPorId,
-  obtenerUsuariosDeSolicitud,
-  obtenerEstadoAmistad
+  insertarSolicitudAmistad, actualizarSolicitudAmistadPorId, obtenerUsuariosDeSolicitud, obtenerEstadoAmistad
 } from "../models/solicitudModel.js";
 
 import { insertarNotificacionAmistad } from "../models/notificacionModel.js";
 
 import {
-  obtenerImagenesPorVisibilidad,
-   asociarImagenAlbum
+  obtenerImagenesPorVisibilidad, asociarImagenAlbum
 } from "../models/imagenModel.js";
 
 import { crearAlbum } from "../models/albumModel.js";

@@ -49,7 +49,7 @@ router.get('/logout', (req, res) => {
       return res.status(500).send('Error al cerrar sesión');
     }
 
-    console.log('✅ Sesión cerrada correctamente');
+    console.log('Sesión cerrada correctamente');
     res.redirect('/');
   });
 });

@@ -1,4 +1,5 @@
 // routes/comentarioRoutes.js
+
 import express from 'express';
 import { listarComentarios, crearComentario } from '../controllers/comentarioController.js';
 

@@ -1,7 +1,5 @@
 //controllers/usuarioController.js
 import bcrypt from 'bcryptjs';
-
-
 import {insertarUsuario, obtenerUsuarios, eliminarUsuario, actualizarUsuario, obtenerUsuarioPorId, obtenerUsuarioPorEmail, obtenerUsuariosExcepto, obtenerUsuariosPorNombre, buscarUsuariosDisponibles} from "../models/usuarioModel.js";
 
 
