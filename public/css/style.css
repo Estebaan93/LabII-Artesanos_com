@@ -398,6 +398,7 @@ footer {
 .perfil-dropdown {
   position: relative;
   display: inline-block;
+  padding-right: 15px;
 }
 
 .perfil-dropdown .avatar {
