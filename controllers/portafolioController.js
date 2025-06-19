@@ -1,5 +1,5 @@
 // controllers/portafolioController.js
-import { obtenerUsuariosConImagenPublica, obtenerAlbumesPublicosPorUsuario, obtenerImagenesPublicasPorAlbum } from '../models/portafolioModel.js';
+import {obtenerUsuariosConImagenPublica, obtenerAlbumesPublicosPorUsuario, obtenerImagenesPublicasPorAlbum} from '../models/portafolioModel.js';
 import {obtenerUsuarioPorId} from '../models/usuarioModel.js';
 import {obtenerImagenesVisibles} from '../models/imagenModel.js';
 

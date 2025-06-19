@@ -1,7 +1,6 @@
 // routes/notificacionRoutes.js 
 import express from 'express';
-import {listarNotificaciones, marcarLeida, listarNotificacionesAPI
-} from '../controllers/notificacionController.js';
+import {listarNotificaciones, marcarLeida, listarNotificacionesAPI} from '../controllers/notificacionController.js';
 
 import {responderSolicitudAmistad} from '../controllers/solicitudController.js'; //nuevo controlador que ahora agregamos
 

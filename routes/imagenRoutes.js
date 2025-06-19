@@ -1,8 +1,8 @@
 //routes/imagenRoutes.js
 
 import express from 'express';
-import { uploadObra } from '../middlewares/upload.js';
-import { mostrarFormularioSubir, procesarSubidaImagen } from '../controllers/imagenController.js';
+import {uploadObra} from '../middlewares/upload.js';
+import {mostrarFormularioSubir, procesarSubidaImagen} from '../controllers/imagenController.js';
 
 const router = express.Router();
 

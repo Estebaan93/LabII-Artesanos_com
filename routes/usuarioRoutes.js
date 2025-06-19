@@ -1,8 +1,8 @@
 //routes/usuarioRoutes.js
 
 import express from 'express';
-import { listarUsuarios, mostrarFormulario, crearUsuario, mostrarPerfil, procesarLogin,  mostrarBuscador, apiBuscarUsuarios } from '../controllers/usuarioController.js';
-import { uploadPerfil } from '../middlewares/upload.js';
+import {listarUsuarios, mostrarFormulario, crearUsuario, mostrarPerfil, procesarLogin,  mostrarBuscador, apiBuscarUsuarios } from '../controllers/usuarioController.js';
+import {uploadPerfil } from '../middlewares/upload.js';
 import {mostrarEstadisticasPerfil} from '../controllers/estadisticaController.js';
 
 

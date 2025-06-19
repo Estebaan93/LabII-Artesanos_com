@@ -1,5 +1,5 @@
 import express from 'express';
-import { verPerfil, mostrarEditarPerfil, actualizarPerfil } from '../controllers/perfilController.js';
+import {verPerfil, mostrarEditarPerfil, actualizarPerfil} from '../controllers/perfilController.js';
 
 const router = express.Router();
 

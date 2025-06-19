@@ -1,5 +1,5 @@
 // controllers/imagenController.js
-import { insertarImagen, asociarImagenAlbum, obtenerValoresEnumVisibilidad, obtenerPortadaPorAlbum } from "../models/imagenModel.js";
+import {insertarImagen, asociarImagenAlbum, obtenerValoresEnumVisibilidad, obtenerPortadaPorAlbum} from "../models/imagenModel.js";
 
 // Mostrar formulario para subir imagen
 export const mostrarFormularioSubir = async (req, res) => {

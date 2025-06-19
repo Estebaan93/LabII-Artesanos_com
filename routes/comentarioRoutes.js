@@ -1,7 +1,7 @@
 // routes/comentarioRoutes.js
 
 import express from 'express';
-import { listarComentarios, crearComentario } from '../controllers/comentarioController.js';
+import {listarComentarios, crearComentario} from '../controllers/comentarioController.js';
 
 const router = express.Router();
 

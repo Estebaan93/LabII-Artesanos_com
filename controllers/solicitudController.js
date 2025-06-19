@@ -1,15 +1,10 @@
 // controllers/solicitudController.js
 import {insertarSolicitudAmistad, actualizarSolicitudAmistadPorId, obtenerUsuariosDeSolicitud, obtenerEstadoAmistad} from "../models/solicitudModel.js";
-
-import { insertarNotificacionAmistad } from "../models/notificacionModel.js";
-
-import {
-  obtenerImagenesPorVisibilidad, asociarImagenAlbum
-} from "../models/imagenModel.js";
-
+import {insertarNotificacionAmistad} from "../models/notificacionModel.js";
+import {obtenerImagenesPorVisibilidad, asociarImagenAlbum} from "../models/imagenModel.js";
 import { crearAlbum } from "../models/albumModel.js";
-
 import { emitirNotificacion } from "../index.js";
+
 
 export const crearSolicitudAmistad = async (req, res) => {
   try {

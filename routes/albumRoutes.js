@@ -18,7 +18,7 @@ router.get('/album/:id_album', soloLogueados, verAlbum);
 export default router;*/
 
 import express from 'express';
-import { listarAlbumes, mostrarFormularioCrear, crearAlbumPost, verAlbum, eliminarAlbum } from '../controllers/albumController.js';
+import {listarAlbumes, mostrarFormularioCrear, crearAlbumPost, verAlbum, eliminarAlbum} from '../controllers/albumController.js';
 
 const router = express.Router();
 

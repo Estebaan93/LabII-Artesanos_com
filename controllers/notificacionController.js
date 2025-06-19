@@ -1,5 +1,5 @@
 // controllers/notificacionController.js
-import { obtenerNotificacionesNoLeidas, marcarNotificacionLeida } from '../models/notificacionModel.js';
+import {obtenerNotificacionesNoLeidas, marcarNotificacionLeida} from '../models/notificacionModel.js';
 
 export const listarNotificaciones = async (req, res) => {
   try {
