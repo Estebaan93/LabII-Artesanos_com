@@ -1,3 +1,5 @@
+//public/js/modalImagen.js
+
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('modal-imagen');
   const cerrarModal = document.getElementById('cerrar-modal');

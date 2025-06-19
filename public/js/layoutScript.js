@@ -1,3 +1,5 @@
+//public/js/layoutScript.js
+
 document.addEventListener("DOMContentLoaded", () => {
   const modalLogin = document.getElementById("modal-login");
   const modalRegister = document.getElementById("modal-registrarse");
