@@ -20,6 +20,7 @@ block content
             img.imagen-clickable(
               src=srcImg,
               alt=img.titulo,
+              data-id=img.id_imagen,
               data-usuario=`${usuario.nombre} ${usuario.apellido}`,
               data-titulo=img.titulo
             )
@@ -30,5 +31,7 @@ block content
       button#cerrar-modal ×
       h3#modal-titulo
       p#modal-usuario
+      ul#modal-comentarios
+        // Los comentarios en public
 
   script(src="/js/modalImagen.js")
