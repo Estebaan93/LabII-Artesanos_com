@@ -1,5 +1,5 @@
-import { crearAlbum, obtenerAlbumDeUsuario, obtenerAlbumPorId, eliminarAlbumPorId } from '../models/albumModel.js';
-import { obtenerImagenesDeAlbum,obtenerImagenesVisibles } from '../models/imagenModel.js';
+import {crearAlbum, obtenerAlbumDeUsuario, obtenerAlbumPorId, eliminarAlbumPorId } from '../models/albumModel.js';
+import {obtenerImagenesDeAlbum,obtenerImagenesVisibles } from '../models/imagenModel.js';
 
 // Listar 
 export const listarAlbumes = async (req, res) => {

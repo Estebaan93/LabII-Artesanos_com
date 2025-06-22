@@ -40,7 +40,7 @@ export const procesarLogin = async (req, res) => {
   req.session.usuario = usuario;
 
   // Respuesta en JSON
-  res.json({ mensaje: 'Login exitoso', usuario: { nombre: usuario.nombre } });
+  res.json({mensaje: 'Login exitoso', usuario: { nombre: usuario.nombre } });
   console.log(usuario)
 };
 
@@ -91,7 +91,7 @@ export const crearUsuario = async (req, res) => {
     };
 
     // Enviar respuesta JSON
-    return res.status(201).json({ mensaje: 'Usuario registrado correctamente', redirectTo: '/home' });
+    return res.status(201).json({mensaje: 'Usuario registrado correctamente', redirectTo: '/home' });
 
   } catch (error) {
     console.error('Error en crearUsuario:', error);

@@ -1,6 +1,6 @@
 // routes/solicitudRoutes.js
 import express from 'express';
-import { crearSolicitudAmistad , responderSolicitudAmistad } from '../controllers/solicitudController.js';
+import {crearSolicitudAmistad , responderSolicitudAmistad } from '../controllers/solicitudController.js';
 
 const router = express.Router();
 

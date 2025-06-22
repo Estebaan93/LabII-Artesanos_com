@@ -1,6 +1,5 @@
 import {
-  obtenerDatosUsuario, obtenerFormacionesUsuario, obtenerInteresesUsuario, actualizarDatosUsuario
-} from '../models/perfilModel.js';
+  obtenerDatosUsuario, obtenerFormacionesUsuario, obtenerInteresesUsuario, actualizarDatosUsuario} from '../models/perfilModel.js';
 
 export const verPerfil = async (req, res) => {
   try {
@@ -78,7 +77,7 @@ export const actualizarPerfil = async (req, res) => {
       formaciones = [];
     }
 
-    await actualizarDatosUsuario(id_usuario, { nombre, apellido, email, avatarUrl, formaciones });
+    await actualizarDatosUsuario(id_usuario, {nombre, apellido, email, avatarUrl, formaciones });
 
     res.redirect('/perfil');
   } catch (error) {

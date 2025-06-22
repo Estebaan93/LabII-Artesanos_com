@@ -7,7 +7,7 @@ import pool from '../config/db.js';
 dotenv.config();
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const {email, password} = req.body;
 
   try {
     const [rows] = await pool.query('SELECT * FROM usuario WHERE email = ?', [email]);

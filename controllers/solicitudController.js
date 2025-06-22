@@ -2,8 +2,8 @@
 import {insertarSolicitudAmistad, actualizarSolicitudAmistadPorId, obtenerUsuariosDeSolicitud, obtenerEstadoAmistad} from "../models/solicitudModel.js";
 import {insertarNotificacionAmistad} from "../models/notificacionModel.js";
 import {obtenerImagenesPorVisibilidad, asociarImagenAlbum} from "../models/imagenModel.js";
-import { crearAlbum } from "../models/albumModel.js";
-import { emitirNotificacion } from "../index.js";
+import {crearAlbum} from "../models/albumModel.js";
+import {emitirNotificacion} from "../index.js";
 
 
 export const crearSolicitudAmistad = async (req, res) => {
@@ -51,17 +51,14 @@ export const crearSolicitudAmistad = async (req, res) => {
 
 export const responderSolicitudAmistad = async (req, res) => {
   try {
-    const { id_solicitud, accion } = req.body;
+    const {id_solicitud, accion} = req.body;
 
     const accionesValidas = ["aceptar", "rechazar", "cancelar", "eliminar"];
     if (!accionesValidas.includes(accion)) {
       return res.status(400).json({ error: "Acción inválida" });
     }
 
-    const resultado = await actualizarSolicitudAmistadPorId({
-      id_solicitud,
-      accion,
-    });
+    const resultado = await actualizarSolicitudAmistadPorId({id_solicitud, accion,});
 
     if (resultado === 0) {
       return res.status(404).json({ error: "Solicitud no encontrada" });
@@ -74,7 +71,7 @@ export const responderSolicitudAmistad = async (req, res) => {
         .json({ error: "Usuarios de solicitud no encontrados" });
     }
 
-    const { id_usuario: id_remitente, id_destinatario } = usuarios;
+    const {id_usuario: id_remitente, id_destinatario} = usuarios;
 
     if (accion === "aceptar") {
       await insertarNotificacionAmistad({
@@ -111,7 +108,7 @@ export const responderSolicitudAmistad = async (req, res) => {
       );
     }
 
-    res.json({ ok: true, mensaje: `Solicitud ${accion} correctamente.` });
+    res.json({ok: true, mensaje: `Solicitud ${accion} correctamente.` });
   } catch (error) {
     console.error("Error en responder solicitud amistad:", error);
     res.status(500).json({ error: "No se pudo actualizar la solicitud." });
