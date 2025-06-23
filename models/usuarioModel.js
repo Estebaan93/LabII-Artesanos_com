@@ -86,15 +86,12 @@ export const obtenerUsuariosExcepto = async (id_usuario) => {
   }
 };
 
-export const obtenerUsuariosPorNombre = async (nombre) => {
-  try {
-    const query = 'SELECT * FROM usuario WHERE nombre LIKE ?';
-    const [rows] = await pool.query(query, [`%${nombre}%`]);
-    return rows;
-  } catch (error) {
-    console.error('Error al obtener usuarios por nombre:', error);
-    throw error;
-  }
+export const obtenerUsuarioPorNombreYApellido = async (nombre, apellido) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM usuario WHERE nombre = ? AND apellido = ? LIMIT 1",
+    [nombre, apellido]
+  );
+  return rows[0] || null;
 };
 
 

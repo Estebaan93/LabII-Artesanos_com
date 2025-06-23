@@ -9,7 +9,7 @@ html
     block headExtra
   body
     header
-      h1 Bienvenido, #{usuario.nombre}
+      h1 Bienvenido, #{usuarioSesion.nombre}
       nav
         a(href="/home") Inicio
         .dropdown
@@ -35,7 +35,7 @@ html
         //Menu desplegable
         .perfil-dropdown
           .avatar-container
-            img.avatar(src=`/img/perfiles/${usuario.avatarUrl || 'default.png'}` alt="avatar")
+            img.avatar(src=`/img/perfiles/${usuarioSesion.avatarUrl || 'default.png'}` alt="avatar")
             ul.menu
               li: a(href="/perfil") Perfil
               li: a(href="/estadisticas") Estadisticas
@@ -47,7 +47,7 @@ html
     footer
       p © #{new Date().getFullYear()} Artesanos.com
     script.
-      window.usuarioId = !{JSON.stringify(usuario.id_usuario)};
+      window.usuarioId = !{JSON.stringify(usuarioSesion.id_usuario)};
     script(src="/socket.io/socket.io.js") 
     script(src="/js/notificaciones.js")
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

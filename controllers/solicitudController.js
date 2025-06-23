@@ -1,10 +1,13 @@
 // controllers/solicitudController.js
-import {insertarSolicitudAmistad, actualizarSolicitudAmistadPorId, obtenerUsuariosDeSolicitud, obtenerEstadoAmistad} from "../models/solicitudModel.js";
-import {insertarNotificacionAmistad} from "../models/notificacionModel.js";
-import {obtenerImagenesPorVisibilidad, asociarImagenAlbum} from "../models/imagenModel.js";
-import {crearAlbum} from "../models/albumModel.js";
-import {emitirNotificacion} from "../index.js";
 
+import {
+  insertarSolicitudAmistad,
+  actualizarSolicitudAmistadPorId,
+  obtenerUsuariosDeSolicitud,
+  obtenerEstadoAmistad
+} from "../models/solicitudModel.js";
+import { insertarNotificacionAmistad } from "../models/notificacionModel.js";
+import { emitirNotificacion } from "../index.js";
 
 export const crearSolicitudAmistad = async (req, res) => {
   try {
@@ -51,14 +54,14 @@ export const crearSolicitudAmistad = async (req, res) => {
 
 export const responderSolicitudAmistad = async (req, res) => {
   try {
-    const {id_solicitud, accion} = req.body;
+    const { id_solicitud, accion } = req.body;
 
     const accionesValidas = ["aceptar", "rechazar", "cancelar", "eliminar"];
     if (!accionesValidas.includes(accion)) {
       return res.status(400).json({ error: "Acción inválida" });
     }
 
-    const resultado = await actualizarSolicitudAmistadPorId({id_solicitud, accion,});
+    const resultado = await actualizarSolicitudAmistadPorId({ id_solicitud, accion });
 
     if (resultado === 0) {
       return res.status(404).json({ error: "Solicitud no encontrada" });
@@ -71,7 +74,7 @@ export const responderSolicitudAmistad = async (req, res) => {
         .json({ error: "Usuarios de solicitud no encontrados" });
     }
 
-    const {id_usuario: id_remitente, id_destinatario} = usuarios;
+    const { id_usuario: id_remitente } = usuarios;
 
     if (accion === "aceptar") {
       await insertarNotificacionAmistad({
@@ -81,7 +84,6 @@ export const responderSolicitudAmistad = async (req, res) => {
       });
 
       const nombreAceptador = req.session.usuario.nombre;
-      const apellidoAceptador = req.session.usuario.apellido;
 
       emitirNotificacion(id_remitente, {
         tipo: "aceptacion",
@@ -89,26 +91,11 @@ export const responderSolicitudAmistad = async (req, res) => {
         mensaje: `${nombreAceptador} ha aceptado tu solicitud de amistad.`,
       });
 
-      const tituloAlbum = `${nombreAceptador} ${apellidoAceptador}`;
-      const id_album = await crearAlbum({
-        id_usuario: id_remitente,
-        titulo: tituloAlbum,
-      });
-
-      const imagenesMejoresAmigos = await obtenerImagenesPorVisibilidad(
-        id_destinatario,
-        "mejores_amigos"
-      );
-
-      for (const imagen of imagenesMejoresAmigos) {
-        await asociarImagenAlbum(id_album, imagen.id_imagen);
-      }
-      console.log(
-        `Se asociaron ${imagenesMejoresAmigos.length} imágenes al álbum ${id_album}`
-      );
+      // *** Ya NO se crea álbum físico de amistad ***
+      // La galería de amistad es virtual (ver lógica en listarAlbumes)
     }
 
-    res.json({ok: true, mensaje: `Solicitud ${accion} correctamente.` });
+    res.json({ ok: true, mensaje: `Solicitud ${accion} correctamente.` });
   } catch (error) {
     console.error("Error en responder solicitud amistad:", error);
     res.status(500).json({ error: "No se pudo actualizar la solicitud." });

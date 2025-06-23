@@ -1,5 +1,8 @@
+//controllers/albumController.js
 import {crearAlbum, obtenerAlbumDeUsuario, obtenerAlbumPorId, eliminarAlbumPorId } from '../models/albumModel.js';
 import {obtenerImagenesDeAlbum,obtenerImagenesVisibles } from '../models/imagenModel.js';
+import {obtenerUsuarioPorNombreYApellido} from '../models/usuarioModel.js'
+import {obtenerAmigosDeUsuario} from '../models/amistadModel.js';
 
 // Listar 
 export const listarAlbumes = async (req, res) => {
@@ -7,24 +10,39 @@ export const listarAlbumes = async (req, res) => {
     const id_usuario = req.session.usuario.id_usuario;
     const albumes = await obtenerAlbumDeUsuario(id_usuario);
 
+    // Cards normales
     const albumConPortada = await Promise.all(
       albumes.map(async (album) => {
         const imagenes = await obtenerImagenesDeAlbum(album.id_album);
         const portada = imagenes.length > 0 ? imagenes[0].imagen : null;
-        return { ...album, portada };
+        return { ...album, portada, esVirtual: false };
       })
     );
 
-    res.render('albumes/index', { albumes: albumConPortada });
+    // Cards de amistad (virtuales)
+    const amistades = await obtenerAmigosDeUsuario(id_usuario); // [{id_usuario, nombre, apellido}, ...]
+    const cardsAmistad = amistades.map(amigo => ({
+      titulo: `Galería de amistad de ${amigo.nombre} ${amigo.apellido}`,
+      id_amigo: amigo.id_usuario,
+      portada: amigo.avatarUrl || null, // Si querés mostrar su foto de perfil
+      esVirtual: true
+    }));
+
+    res.render('albumes/index', {
+      albumes: [...albumConPortada, ...cardsAmistad],
+      usuarioSesion: req.session.usuario
+    });
   } catch (error) {
     console.error(`Error al obtener álbumes: ${error}`);
     res.status(500).send('Error al obtener álbumes');
   }
-};
+}
 
 // Mostrar formulario 
 export const mostrarFormularioCrear = (req, res) => {
-  res.render('albumes/nuevo');
+  res.render('albumes/nuevo',{
+    usuarioSesion: req.session.usuario
+  });
 };
 
 // Crear album (POST)
@@ -48,23 +66,31 @@ export const verAlbum = async (req, res) => {
     const album = await obtenerAlbumPorId(id_album);
     if (!album) return res.status(404).send('Álbum no encontrado');
 
-    // Logs para comparar si el usuario que consulta es el propietario
-    console.log("Propietario del álbum:", album.id_usuario);
-    console.log("Consultante:", id_usuario_consultante);
+    // Si detectás que es un álbum de amistad físico (por el título o por un campo especial)
+    if (album.titulo.startsWith("Galería de amistad de")) {
+      const partes = album.titulo.split(" ");
+      const nombreAmigo = partes[4];
+      const apellidoAmigo = partes.slice(5).join(" ");
+      const amigo = await obtenerUsuarioPorNombreYApellido(nombreAmigo, apellidoAmigo);
+      if (amigo) {
+        return res.redirect(`/usuarios/${amigo.id_usuario}/galeria-amistad`);
+      }
+    }
 
+    // Resto de la lógica para álbum real
     const imagenes = await obtenerImagenesVisibles(id_album, id_usuario_consultante);
-
-   //consulto
-    console.log('Visibilidades recibidas:', imagenes.map(img => img.visibilidad));
-    console.log('Total de imágenes recibidas:', imagenes.length);
-    console.log('Imágenes completas:', imagenes);
-
-    res.render('albumes/detalle', { album, imagenes });
+    res.render('albumes/detalle', { 
+      album,
+      imagenes,
+      usuarioSesion: req.session.usuario
+    });
   } catch (error) {
     console.error('Error en verAlbum:', error);
     res.status(500).send('Error al obtener el álbum');
   }
 };
+
+
 
 
 export const eliminarAlbum = async (req, res) => {

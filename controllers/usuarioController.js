@@ -1,6 +1,6 @@
 //controllers/usuarioController.js
 import bcrypt from 'bcryptjs';
-import {insertarUsuario, obtenerUsuarios, eliminarUsuario, actualizarUsuario, obtenerUsuarioPorId, obtenerUsuarioPorEmail, obtenerUsuariosExcepto, obtenerUsuariosPorNombre, buscarUsuariosDisponibles} from "../models/usuarioModel.js";
+import {insertarUsuario, obtenerUsuarios, eliminarUsuario, actualizarUsuario, obtenerUsuarioPorId, obtenerUsuarioPorEmail, obtenerUsuariosExcepto, buscarUsuariosDisponibles} from "../models/usuarioModel.js";
 
 
 export const mostrarFormulario= (req, res)=>{

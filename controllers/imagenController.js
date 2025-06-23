@@ -11,7 +11,8 @@ export const mostrarFormularioSubir = async (req, res) => {
   // Renderizar envio opcion y id
   res.render('obras/nueva', {
     id_album,
-    visibilidades
+    visibilidades,
+    usuarioSesion: req.session.usuario
   });
 };
 
