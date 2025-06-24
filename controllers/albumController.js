@@ -2,7 +2,7 @@
 import {crearAlbum, obtenerAlbumDeUsuario, obtenerAlbumPorId, eliminarAlbumPorId } from '../models/albumModel.js';
 import {obtenerImagenesDeAlbum,obtenerImagenesVisibles } from '../models/imagenModel.js';
 import {obtenerUsuarioPorNombreYApellido} from '../models/usuarioModel.js'
-import {obtenerAmigosDeUsuario} from '../models/amistadModel.js';
+import {obtenerAmigosEnviadosYAceptados} from '../models/solicitudModel.js'
 
 // Listar 
 export const listarAlbumes = async (req, res) => {
@@ -20,7 +20,7 @@ export const listarAlbumes = async (req, res) => {
     );
 
     // Cards de amistad (virtuales)
-    const amistades = await obtenerAmigosDeUsuario(id_usuario); // [{id_usuario, nombre, apellido}, ...]
+    const amistades = await obtenerAmigosEnviadosYAceptados(id_usuario); // [{id_usuario, nombre, apellido}, ...]
     const cardsAmistad = amistades.map(amigo => ({
       titulo: `Galería de amistad de ${amigo.nombre} ${amigo.apellido}`,
       id_amigo: amigo.id_usuario,

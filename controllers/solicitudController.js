@@ -1,11 +1,7 @@
 // controllers/solicitudController.js
 
 import {
-  insertarSolicitudAmistad,
-  actualizarSolicitudAmistadPorId,
-  obtenerUsuariosDeSolicitud,
-  obtenerEstadoAmistad
-} from "../models/solicitudModel.js";
+  insertarSolicitudAmistad, actualizarSolicitudAmistadPorId, obtenerUsuariosDeSolicitud, obtenerEstadoAmistad, obtenerEstadoSolicitudDirecta} from "../models/solicitudModel.js";
 import { insertarNotificacionAmistad } from "../models/notificacionModel.js";
 import { emitirNotificacion } from "../index.js";
 
@@ -20,7 +16,7 @@ export const crearSolicitudAmistad = async (req, res) => {
         .json({ error: "No se puede enviar solicitud a uno mismo." });
     }
 
-    const estado = await obtenerEstadoAmistad(id_usuario, id_destinatario);
+    const estado = await obtenerEstadoSolicitudDirecta(id_usuario, id_destinatario);
     if (estado === "aceptar" || estado === "aceptado") {
       return res.status(400).json({ error: "Ya son amigos." });
     }
