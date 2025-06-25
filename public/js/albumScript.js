@@ -97,4 +97,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+  // Efecto ZOOM al click en la imagen del modal
+
+// Crear fondo oscuro para el zoom (solo una vez)
+let fondoZoom = document.getElementById('fondo-zoom');
+if (!fondoZoom) {
+  fondoZoom = document.createElement('div');
+  fondoZoom.id = 'fondo-zoom';
+  document.body.appendChild(fondoZoom);
+}
+
+// Cuando hacés click en la imagen grande del modal
+modalImg.addEventListener('click', function (e) {
+  e.stopPropagation();
+  // Solo activar si hay src (no cuando está vacío)
+  if (!modalImg.src) return;
+  modalImg.classList.add('zoom-activo');
+  fondoZoom.classList.add('activo');
+});
+
+// Al hacer click en el fondo oscuro, desactiva el zoom
+fondoZoom.addEventListener('click', function () {
+  modalImg.classList.remove('zoom-activo');
+  fondoZoom.classList.remove('activo');
+});
+
+// Opcional: cerrar zoom con Escape
+window.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    modalImg.classList.remove('zoom-activo');
+    fondoZoom.classList.remove('activo');
+  }
+});
+
+
 });

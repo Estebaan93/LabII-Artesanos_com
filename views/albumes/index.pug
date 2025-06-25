@@ -15,8 +15,8 @@ block content
         if album.esVirtual
           // Galería de amistad (virtual)
           a(href=`/usuarios/${album.id_amigo}/galeria-amistad`)
-            if album.portada
-              img(src=`/img/avatares/${album.portada}` alt="Avatar amigo")
+            if album.imgAvatar
+              img(src=`/img/perfiles/${album.imgAvatar}` alt="Avatar amigo")
             else
               img(src="/img/avatar-default.png" alt="Sin foto")
             h3 #{album.titulo}

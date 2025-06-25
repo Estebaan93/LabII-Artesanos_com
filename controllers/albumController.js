@@ -24,7 +24,7 @@ export const listarAlbumes = async (req, res) => {
     const cardsAmistad = amistades.map(amigo => ({
       titulo: `Galería de amistad de ${amigo.nombre} ${amigo.apellido}`,
       id_amigo: amigo.id_usuario,
-      portada: amigo.avatarUrl || null, // Si querés mostrar su foto de perfil
+      imgAvatar: amigo.avatarUrl || null, // Si querés mostrar su foto de perfil
       esVirtual: true
     }));
 

@@ -22,6 +22,12 @@
   position: relative;
   width: 400px;
   max-width: 90vw;
+  /* NUEVO: Limita la altura del modal */
+  max-height: 90vh;
+  overflow: hidden; /* Evita que el contenido se desborde */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Close button */
@@ -37,25 +43,82 @@
 
 /* Modal image */
 #modal-imagen {
-  width: 100%;
+  width: auto;          /* Permite que la imagen conserve la proporción */
+  max-width: 100%;      /* Nunca más ancha que el modal */
+  max-height: 55vh;    /* Nunca más alta que el 55% de la ventana, así siempre se ven los comentarios abajo */
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  object-fit: contain;  /* Mantiene la imagen completa visible */
   border-radius: 8px;
+  box-shadow: 0 0 10px #4443;
 }
-.comentarios {
+#modal-titulo {
+  margin: 0 0 6px 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+}
+#modal-visibilidad {
+  margin-bottom: 10px;
+  font-size: 1.05em;
+  color: #444;
+  text-align: center;
+}
+
+/*Comentarios scrollable en el modal*/
+#modal-comentarios.comentarios {
   margin-top: 10px;
-  max-height: 150px;
-  overflow-y: auto;
+  flex: 1 1 auto;         /* Hace que la zona de comentarios crezca hasta ocupar el espacio sobrante */
+  max-height: 240px;
+  min-height: 40px;
+  overflow-y: auto;   /* Scroll si hay muchos comentarios */
   border-top: 1px solid #ddd;
   padding-top: 5px;
+  width: 100%;
+  box-sizing: border-box;
 }
-.comentario {
+/*.comentario {
   padding: 3px 0;
   font-size: 0.9em;
   border-bottom: 1px solid #eee;
-}
+}*/
 form.form-comentario textarea {
   width: 100%;
   resize: vertical;
 }
 form.form-comentario button {
   margin-top: 4px;
+}
+
+
+/* Efecto zoom para la imagen del modal */
+#modal-imagen.zoom-activo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  max-width: 95vw;
+  max-height: 90vh;
+  height: auto;
+  z-index: 2000;
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 0 40px #2229;
+  border-radius: 16px;
+  transition: box-shadow 0.3s, transform 0.3s;
+  cursor: zoom-out;
+  background: #fff;
+}
+
+/* Fondo oscurecido cuando el zoom está activo */
+#fondo-zoom {
+  display: none;
+  position: fixed;
+  inset: 0;
+  /*background: rgba(0,0,0,0.7);*/
+  z-index: 1500;
+}
+
+#fondo-zoom.activo {
+  display: block;
 }

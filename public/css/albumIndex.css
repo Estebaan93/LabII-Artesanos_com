@@ -17,26 +17,60 @@
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   padding: 16px;
-  width: 210px; /* ancho fijo */
+  width: 210px;
   text-align: center;
   transition: transform 0.2s;
   display: flex;
   flex-direction: column;
-  align-items: center; /* centrar contenido */
+  align-items: center;
+  min-height: 380px; /* <--- ALTO PAREJO para todas, subilo si hace falta */
+  max-height: 440px; /* <--- opcional, para que nunca explote si se llenan de comentarios */
+  justify-content: flex-start;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .album-card img {
   object-fit: cover;
-  width: 160px;  /* ancho más pequeño para la imagen */
-  height: 100px; /* altura proporcional */
+  width: 160px;
+  height: 100px;
   border-radius: 8px;
   margin-bottom: 12px;
 }
 
-
 .album-card img[alt="Sin obras"] {
   opacity: 0.4;
 }
+
+
+
+/* Si tu form para comentar va abajo, podés ponerle: */
+form.form-comentario textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 34px;
+  max-height: 72px;
+}
+form.form-comentario button {
+  margin-top: 4px;
+}
+
+/* Para que el botón eliminar quede siempre abajo (opcional): */
+.album-card button {
+  margin-top: auto;
+  margin-bottom: 6px;
+}
+/* Ajustes responsivos si querés */
+@media (max-width: 540px) {
+  .album-card {
+    min-height: 330px;
+    width: 92vw;
+    max-width: 97vw;
+  }
+}
+
+
+
 .filtro-album {
   margin-bottom: 16px;
   width: 300px;
