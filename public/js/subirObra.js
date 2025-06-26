@@ -1,3 +1,4 @@
+//public/js/subirObras.js
 document.addEventListener('DOMContentLoaded', () => {
   const visibilidad = document.getElementById('visibilidad');
   const campoAmigos = document.getElementById('amigos-personalizados');

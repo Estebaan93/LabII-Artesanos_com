@@ -20,39 +20,34 @@ export const mostrarFormularioSubir = async (req, res) => {
 export const procesarSubidaImagen = async (req, res) => {
   try {
     const id_album = req.params.id_album;
-    console.log('id_album recibido:', id_album);
-
     const { titulo, visibilidad, imagen_url } = req.body;
-    let imagen = null;
 
-    if (req.file && req.file.filename) {
-      imagen = req.file.filename;
-    } else if (imagen_url && imagen_url.trim()) {
-      imagen = imagen_url.trim();
+    // Si subió archivos
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        const id_imagen = await insertarImagen({
+          imagen: file.filename,
+          titulo,
+          visibilidad: visibilidad || 'personal',
+          id_album
+        });
+        await asociarImagenAlbum(id_album, id_imagen);
+      }
+      return res.redirect(`/albumes/${id_album}`);
     }
-
-    if (!imagen) {
-      return res.status(400).send('Debe subir un archivo o ingresar una URL.');
+    // Si no, procesar URL (opcional, sólo si no subió archivos)
+    if (imagen_url && imagen_url.trim()) {
+      const id_imagen = await insertarImagen({
+        imagen: imagen_url.trim(),
+        titulo,
+        visibilidad: visibilidad || 'personal',
+        id_album
+      });
+      await asociarImagenAlbum(id_album, id_imagen);
+      return res.redirect(`/albumes/${id_album}`);
     }
-
-    if (!id_album) {
-      return res.status(400).send('El id_album es obligatorio y no puede ser nulo.');
-    }
-
-    // Insertar la imagen en la tabla `imagen`
-    const id_imagen = await insertarImagen({
-      imagen,
-      titulo,
-      visibilidad: visibilidad || 'personal',
-      id_album
-    });
-
-    // Asociar a la tabla intermedia si hace falta
-    await asociarImagenAlbum(id_album, id_imagen);
-
-
-    // Redirigir al álbum
-    res.redirect(`/albumes/${id_album}`);
+    // Si no subió nada
+    return res.status(400).send('Debe subir uno o más archivos o ingresar una URL.');
 
   } catch (error) {
     console.error('Error al subir imagen:', error);

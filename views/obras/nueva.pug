@@ -1,3 +1,4 @@
+//-views/obras/nueva.pug
 extends ../layouts/logueado
 
 block content
@@ -14,7 +15,7 @@ block content
         input#titulo(type="text", name="titulo", required)
 
         label(for="imagen_local") Archivo local:
-        input#imagen_local(type="file", name="imagen_local", accept="image/*")
+        input#imagen_local(type="file", name="imagen_local", accept="image/*", multiple)
 
         label(for="imagen_url") o URL de la imagen:
         input#imagen_url(type="url", name="imagen_url", placeholder="https://...")

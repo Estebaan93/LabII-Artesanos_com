@@ -15,7 +15,7 @@ function soloLogueados(req, res, next) {
 router.get('/albumes/:id_album/obras/nueva', soloLogueados, mostrarFormularioSubir);
 
 // Procesar subida (archivo o URL)
-router.post('/albumes/:id_album/obras', soloLogueados, uploadObra.single('imagen_local'), procesarSubidaImagen);
+router.post('/albumes/:id_album/obras', soloLogueados, uploadObra.array('imagen_local',10), procesarSubidaImagen);
 
 export default router;
 

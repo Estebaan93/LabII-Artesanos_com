@@ -37,3 +37,5 @@ export const eliminarAlbumPorId = async (id_album) => {
   const [result] = await pool.query('DELETE FROM album WHERE id_album = ?', [id_album]);
   return result.affectedRows > 0;
 };
+
+
