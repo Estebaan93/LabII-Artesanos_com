@@ -40,6 +40,9 @@ nav a {
   text-decoration: none;
   margin-left: 0;
 }
+main{
+  padding-bottom: 30px;
+}
 
 .btn.btn-agregar{
   text-decoration: none;
@@ -204,6 +207,9 @@ footer {
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+footer p{
+  margin-bottom: 0px;
 }
 
 /* ================= Modal Login ================= */
