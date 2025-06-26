@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.querySelector('.cerrar').addEventListener('click', () => {
+    document.querySelector('.cerrar').addEventListener('click', () => {
     document.querySelector('.div-fondo').style.display = 'none';
   });
 });

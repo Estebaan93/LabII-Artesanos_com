@@ -51,6 +51,20 @@ export const procesarSubidaImagen = async (req, res) => {
 
   } catch (error) {
     console.error('Error al subir imagen:', error);
+
+        // Detectar el error de trigger de límite
+    if (
+      error.code === 'ER_SIGNAL_EXCEPTION' &&
+      error.sqlMessage &&
+      error.sqlMessage.includes('álbum no puede contener más de 20 imágenes')
+    ) {
+      // Renderiza la vista con el mensaje y el id_album para redirigir
+      return res.status(400).render('error_generico', {
+        mensaje: '¡El álbum no puede contener más de 20 imágenes!',
+        id_album: req.params.id_album
+      });
+    }
+
     res.status(500).send('Error al subir la imagen');
   }
 };

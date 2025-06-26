@@ -1,0 +1,13 @@
+//-views/error_generico.pug
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title Límite alcanzado
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+    // Tu script externo con el mensaje
+    script(src="/js/scriptError.js")
+    // Inyecta id_album como variable JS accesible
+    script.
+      window.id_album = !{JSON.stringify(id_album)};
+  body
