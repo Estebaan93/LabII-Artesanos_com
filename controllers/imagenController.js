@@ -1,10 +1,9 @@
 // controllers/imagenController.js
-import {insertarImagen, asociarImagenAlbum, obtenerValoresEnumVisibilidad, obtenerPortadaPorAlbum} from "../models/imagenModel.js";
+import {insertarImagen, asociarImagenAlbum, obtenerValoresEnumVisibilidad, obtenerPortadaPorAlbum, eliminarImagenPorId} from "../models/imagenModel.js";
 
 // Mostrar formulario para subir imagen
 export const mostrarFormularioSubir = async (req, res) => {
   const id_album = req.params.id_album;
-
 
   const visibilidades = await obtenerValoresEnumVisibilidad();
 
@@ -68,3 +67,14 @@ export const procesarSubidaImagen = async (req, res) => {
     res.status(500).send('Error al subir la imagen');
   }
 };
+
+export const eliminarImagen= async (req, res)=>{
+  try{
+    const {id_album, id_imagen}= req.params;
+    await eliminarImagenPorId(id_imagen);
+    res.redirect(`/albumes/${id_album}`); //Rederigimos al album
+  }catch(err){
+    console.error(`Erro al elimnar la imagen ${err}`);
+    res.status(500).send("No se pudo eliminar la imagen");
+  }
+}

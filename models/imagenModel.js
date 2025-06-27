@@ -178,3 +178,30 @@ export const obtenerPortadaPorAlbum = async (id_album) => {
     return null;
   }
 };
+
+
+//Eliminar imagen y dependencias
+export const eliminarImagenPorId= async(id_imagen)=>{
+  const conn= await pool.getConnection();
+  try{
+    await conn.beginTransaction();
+  
+    //Eliminar de album_imgane
+    await conn.query('DELETE FROM album_imagen WHERE id_imagen = ?',[id_imagen]);
+
+    //Eliminar comentarios de la imagen
+    await conn.query('DELETE FROM comentarios WHERE id_imagen = ?', [id_imagen]);
+
+    //Eliminar la imagen
+    await conn.query('DELETE FROM imagen WHERE id_imagen = ?', [id_imagen]);
+
+    await conn.commit();
+    return true;    
+  }catch(error){
+    console.error(`Error al eliminar imagen ${error}`)
+    await conn.rollback();
+    throw error;
+  }finally{
+    conn.release();
+  }
+}
