@@ -78,3 +78,24 @@ export const eliminarImagen= async (req, res)=>{
     res.status(500).send("No se pudo eliminar la imagen");
   }
 }
+
+
+//Eliminar multiple NO SE ESTA USANDO
+export const eliminarMultiplesImg= async (req, res)=>{
+  try{
+    const {id_album}= req.params;
+    const ids= req.body['ids[]'] || req.body.ids; //array
+    if(!ids || ids.length ===0 ) return res.redirect(`/albumes/${id_album}`);
+
+    // Si es solo uno, lo mete como string, forzá array
+    const idsArray = Array.isArray(ids) ? ids : [ids];
+
+    for (const id_imagen of idsArray) {
+      await eliminarImagenPorId(id_imagen);
+    }
+    res.redirect(`/albumes/${id_album}`);
+  }catch(error){
+    console.error(`Error al eliminar las imagenes multiples ${error}`);
+    res.status(500).send(`No se pudieron eliminar las imagenes`);
+  }
+}
