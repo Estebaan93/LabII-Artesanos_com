@@ -60,6 +60,7 @@ export const crearAlbumPost = async (req, res) => {
 // Mostrar detalles alb
 export const verAlbum = async (req, res) => {
   try {
+    const usuarioSesion= req.session.usuario;
     const id_album = req.params.id_album;
     const id_usuario_consultante = req.session.usuario.id_usuario;
 
@@ -79,9 +80,15 @@ export const verAlbum = async (req, res) => {
 
     // Resto de la lógica para álbum real
     const imagenes = await obtenerImagenesVisibles(id_album, id_usuario_consultante);
+    //Puede borrar
+    const imagenesConPermiso=imagenes.map(img=>({
+      ...img,
+      puedeBorrar: album.id_usuario=== usuarioSesion.id_usuario //Enviamos a la vista junto con las img
+    }));
+
     res.render('albumes/detalle', { 
       album,
-      imagenes,
+      imagenes: imagenesConPermiso,
       usuarioSesion: req.session.usuario
     });
   } catch (error) {

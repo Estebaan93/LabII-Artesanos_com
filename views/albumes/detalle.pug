@@ -33,11 +33,12 @@ block content
               data-visibilidad=img.visibilidad
             )
           h4 #{img.titulo}
-          form.eliminar-imagen-form(
-            action=`/albumes/${album.id_album}/obras/${img.id_imagen}/eliminar` 
-            method="post"
-            style="display:inline"
-          )
+          if img.puedeBorrar
+            form.eliminar-imagen-form(
+              action=`/albumes/${album.id_album}/obras/${img.id_imagen}/eliminar` 
+              method="post"
+              style="display:inline"
+            )
             button(type="submit") 🗑️
           p Visibilidad:
             case img.visibilidad
