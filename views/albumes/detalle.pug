@@ -6,7 +6,8 @@ block headExtra
 
 block content
   h2 Álbum: #{album.titulo}
-  a.btn-subir(href=`/albumes/${album.id_album}/obras/nueva`) Subir obra
+  if usuarioSesion.id_usuario===album.id_usuario
+    a.btn-subir(href=`/albumes/${album.id_album}/obras/nueva`) Subir obra
 
   if imagenes.length
     .obras-grid
