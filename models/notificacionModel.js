@@ -59,10 +59,22 @@ export const obtenerNotificacionesNoLeidas = async (id_usuario) => {
 
 export const insertarNotificacionAmistad = async ({ id_solicitud, id_usuario }) => {
   const [result] = await pool.query(`
+    INSERT INTO notificacion_amistad (id_solicitud, id_usuario)
+    VALUES (?, ?)`,
+    [id_solicitud, id_usuario]
+  );
+  return result.insertId;
+};
+
+
+
+/*export const insertarNotificacionAmistad = async ({ id_solicitud, id_usuario }) => {
+  const [result] = await pool.query(`
     INSERT INTO notificacion_amistad (id_solicitud, id_usuario) VALUES (?, ?)
   `, [id_solicitud, id_usuario]);
   return result.insertId;
-};
+};*/
+
 
 export const insertarNotificacionContenido = async ({ id_comentario, id_usuario }) => {
   const [result] = await pool.query(`

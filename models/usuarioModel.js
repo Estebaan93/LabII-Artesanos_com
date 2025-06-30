@@ -14,7 +14,6 @@ export const obtenerUsuarios = async () => {
 };
 
 //Insertar un nuevo usuario
-
 export const insertarUsuario = async ({ nombre, apellido, email, password, avatarUrl, estado }) => {
   const [result] = await pool.query(
     `INSERT INTO usuario (nombre, apellido, email, password, avatarUrl,fecha,  estado) VALUES (?, ?, ?, ?, ?, NOW(), ?)`,
@@ -98,7 +97,7 @@ export const obtenerUsuarioPorNombreYApellido = async (nombre, apellido) => {
 export async function buscarUsuariosDisponibles(id_usuario, nombre) {
   const [usuarios] = await pool.query(
     `
-    SELECT u.id_usuario, u.nombre, u.apellido, u.email
+    SELECT u.id_usuario, u.nombre, u.apellido, u.email, u.avatarUrl
     FROM usuario u
     WHERE u.estado = 1
       AND (u.nombre LIKE ? OR u.apellido LIKE ?)

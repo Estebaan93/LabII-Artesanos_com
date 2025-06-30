@@ -1,3 +1,4 @@
+//public/js/editarPerfil.js
 document.addEventListener('DOMContentLoaded', () => {
   const contenedor = document.getElementById('contenedorFormaciones');
   const btnAgregar = document.getElementById('btnAgregarFormacion');

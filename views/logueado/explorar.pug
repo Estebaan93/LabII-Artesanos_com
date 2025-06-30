@@ -1,0 +1,42 @@
+//-views/logueado/explorar.pug
+extends ../layouts/logueado
+
+block content
+  h2 Explorar usuarios
+
+  if usuarios.length
+    .grid-usuarios
+      each u in usuarios
+        .tarjeta-usuario
+          img.avatar(src=`/img/perfiles/${u.avatarUrl || 'default.png'}` width="80" height="80")
+          h3 #{u.nombre} #{u.apellido}
+          p #{u.email}
+          form(method="post" action="/solicitudes")
+            input(type="hidden" name="id_destinatario" value=u.id_usuario)
+            button(type="submit") Agregar amigo
+  else
+    p No hay usuarios disponibles para agregar.
+
+block headExtra
+  style.
+    .grid-usuarios {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .tarjeta-usuario {
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      background: #f9f9f9;
+      transition: transform 0.2s ease;
+    }
+    .tarjeta-usuario:hover {
+      transform: scale(1.02);
+    }
+    .avatar {
+      border-radius: 50%;
+      object-fit: cover;
+    }

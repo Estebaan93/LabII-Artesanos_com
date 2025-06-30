@@ -1,7 +1,7 @@
 //routes/usuarioRoutes.js
 
 import express from 'express';
-import {listarUsuarios, mostrarFormulario, crearUsuario, mostrarPerfil, procesarLogin,  mostrarBuscador, apiBuscarUsuarios } from '../controllers/usuarioController.js';
+import {listarUsuarios, mostrarFormulario, crearUsuario, mostrarPerfil, procesarLogin,  mostrarBuscador, apiBuscarUsuarios, explorarUsuarios } from '../controllers/usuarioController.js';
 import {uploadPerfil } from '../middlewares/upload.js';
 import {mostrarEstadisticasPerfil} from '../controllers/estadisticaController.js';
 
@@ -37,7 +37,7 @@ router.get('/usuarios/:id_usuario/galeria-amistad', soloLogueados, verGaleriaAmi
 
 router.get('/usuarios/buscador', soloLogueados, mostrarBuscador);
 router.get('/api/usuarios/buscar', soloLogueados, apiBuscarUsuarios);
-
+router.get('/logueado/explorar', soloLogueados, explorarUsuarios);
 
 // Estadisticas (solo logueados)
 router.get('/estadisticas',soloLogueados, mostrarEstadisticasPerfil);
@@ -59,7 +59,12 @@ router.get('/logout', (req, res) => {
 
 // Middleware para proteger rutas
 function soloLogueados(req, res, next) {
-  if (!req.session.loggedin) return res.redirect('/');
+  if (!req.session.loggedin) {
+    if (req.headers.accept?.includes('application/json') || req.xhr) {
+      return res.status(401).json({ error: 'No autenticado' });
+    }
+    return res.redirect('/');
+  }
   next();
 }
 

@@ -6,10 +6,10 @@ block content
   .perfil-container
     button.cerrar(type="button", aria-label="Cerrar", onclick="window.location.href='/home'") ×
     .perfil-header
-      img.perfil-avatar(src=usuario.avatarUrl alt="Avatar")
-      h2= usuario.nombre + ' ' + usuario.apellido
-      p Email: #{usuario.email}
-      p Fecha de registro: #{usuario.fecha.toLocaleDateString('es-AR')}
+      img.perfil-avatar(src=usuarioSesion.avatarUrl alt="Avatar")
+      h2= usuarioSesion.nombre + ' ' + usuarioSesion.apellido
+      p Email: #{usuarioSesion.email}
+      p Fecha de registro: #{usuarioSesion.fecha.toLocaleDateString('es-AR')}
 
     .perfil-section
       h3 Formación

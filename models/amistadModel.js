@@ -19,3 +19,11 @@ export const obtenerAmigosDeUsuario = async (id_usuario) => {
   );
   return rows;
 };
+
+// Crea una relación de amistad (estado = 1)
+export const agregarAmistad = async (id_usuario, id_amigo) => {
+  await pool.query(
+    `INSERT INTO amigos (id_usuario, amigo_id, estado) VALUES (?, ?, 1)`,
+    [id_usuario, id_amigo]
+  );
+};

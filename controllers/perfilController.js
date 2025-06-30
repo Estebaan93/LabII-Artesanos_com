@@ -6,12 +6,12 @@ export const verPerfil = async (req, res) => {
     const id_usuario = req.session.usuario?.id_usuario;
     if (!id_usuario) return res.redirect('/login');
 
-    const usuario = await obtenerDatosUsuario(id_usuario);
+    const usuarioSesion = await obtenerDatosUsuario(id_usuario);
     const formaciones = await obtenerFormacionesUsuario(id_usuario);
     const intereses = await obtenerInteresesUsuario(id_usuario);
 
     res.render('perfil/perfil', {
-      usuario,
+      usuarioSesion,
       formaciones,
       intereses
     });
@@ -26,7 +26,7 @@ export const mostrarEditarPerfil = async (req, res) => {
     const id_usuario = req.session.usuario?.id_usuario;
     if (!id_usuario) return res.redirect('/login');
 
-    const usuario = await obtenerDatosUsuario(id_usuario);
+    const usuarioSesion = await obtenerDatosUsuario(id_usuario);
     const formacionesUsuario = await obtenerFormacionesUsuario(id_usuario);
 
     // Opciones fijas para el select de formación
@@ -42,7 +42,7 @@ export const mostrarEditarPerfil = async (req, res) => {
     ];
 
     res.render('perfil/editarPerfil', {
-      usuario,
+      usuarioSesion,
       opcionesFormacion,
       formacionesUsuario // enviamos todas las formaciones para que se editen
     });

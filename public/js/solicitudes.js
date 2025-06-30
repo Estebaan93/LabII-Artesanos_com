@@ -1,97 +1,104 @@
 // public/js/solicitudes.js
 document.addEventListener("DOMContentLoaded", () => {
-  const formBuscar = document.getElementById("formBuscar");
   const inputNombre = document.getElementById("inputNombre");
 
-  formBuscar.addEventListener("submit", async (e) => {
-    e.preventDefault(); // evitar recarga
-
-    const nombre = inputNombre.value.trim();
-
-    if (!nombre) {
-      Swal.fire({
-        icon: "warning",
-        title: "Por favor ingresa un nombre para buscar",
-      });
-      return;
-    }
+  // Mostrar todos los usuarios al hacer clic en el input
+  inputNombre.addEventListener("focus", async () => {
+    inputNombre.blur(); // evita que se vuelva a abrir el modal al cerrar
 
     try {
-      const response = await fetch(
-        `/api/usuarios/buscar?nombre=${encodeURIComponent(nombre)}`
-      );
-      if (!response.ok) {
-        throw new Error("Error en la búsqueda");
-      }
+      const response = await fetch(`/api/usuarios/buscar?nombre=`);
       const usuarios = await response.json();
 
-      if (usuarios.length === 0) {
-        Swal.fire({
-          icon: "info",
-          title: "No se encontraron usuarios con ese nombre",
+      if (!usuarios.length) return;
+
+      mostrarModalUsuarios(usuarios);
+    } catch (error) {
+      console.error("Error al obtener usuarios:", error);
+    }
+  });
+
+  function mostrarModalUsuarios(usuarios) {
+    Swal.fire({
+      title: "Buscar y agregar amigos",
+      html: `
+        <input id="filtroUsuarios" class="swal2-input" placeholder="Escribí un nombre...">
+        <div id="contenedorUsuarios" style="text-align:left; max-height:300px; overflow:auto;">
+          ${usuarios.map(usuarioCard).join("")}
+        </div>
+      `,
+      showConfirmButton: false,
+      width: 600,
+      allowOutsideClick: true,
+      allowEscapeKey: true,
+      scrollbarPadding: false,
+      didOpen: () => {
+        const inputFiltro = document.getElementById("filtroUsuarios");
+        const contenedor = document.getElementById("contenedorUsuarios");
+
+        inputFiltro.focus();
+
+        inputFiltro.addEventListener("input", () => {
+          const valor = inputFiltro.value.toLowerCase();
+          const filtrados = usuarios.filter(
+            u =>
+              u.nombre.toLowerCase().includes(valor) ||
+              u.apellido.toLowerCase().includes(valor)
+          );
+          contenedor.innerHTML = filtrados.length
+            ? filtrados.map(usuarioCard).join("")
+            : "<p>No hay coincidencias</p>";
+
+          asignarEventosAgregar();
         });
-        return;
+
+        asignarEventosAgregar();
       }
+    });
+  }
 
-      // Armar un listado HTML para mostrar
-      Swal.fire({
-        title: `Resultados de la búsqueda (${usuarios.length})`,
-        html: `
-          <ul style="text-align:left;">
-            ${usuarios
-              .map(
-                (u) => `
-                  <li>
-                    ${u.nombre} ${u.apellido} (${u.email})
-                    <button class="btn-agregar" data-id="${u.id_usuario}" data-nombre="${u.nombre}">Agregar</button>
-                  </li>`
-              )
-              .join("")}
-          </ul>`,
-        width: 600,
-        scrollbarPadding: false,
-        showConfirmButton: false, 
-        didOpen: () => {
-          // alert con evento agregfar
-          const botones = Swal.getPopup().querySelectorAll(".btn-agregar");
-          botones.forEach((btn) => {
-            btn.addEventListener("click", () => {
-              const id = btn.getAttribute("data-id");
-              const nombre = btn.getAttribute("data-nombre");
-              agregarAmigo(id, nombre); 
-            });
-          });
-        },
-      });
+  function usuarioCard(u) {
+    return `
+      <div class="usuario-card" style="display:flex; align-items:center; justify-content:space-between; padding:10px; border-bottom:1px solid #ccc;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <img src="/img/perfiles/${u.avatarUrl || 'default.png'}" width="40" height="40" style="border-radius:50%;">
+          <div>
+            <strong>${u.nombre} ${u.apellido}</strong><br>
+            <small>${u.email}</small>
+          </div>
+        </div>
+        <button class="btn-agregar" data-id="${u.id_usuario}" data-nombre="${u.nombre}" style="padding:5px 10px;">Agregar</button>
+      </div>
+    `;
+  }
 
-      function agregarAmigo(id, nombre) {
+  function asignarEventosAgregar() {
+    document.querySelectorAll(".btn-agregar").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-id");
+        const nombre = btn.getAttribute("data-nombre");
+
         Swal.fire({
-          title: `¿Querés agregar a ${nombre} como amigo?`,
+          title: `¿Agregar a ${nombre} como amigo?`,
           icon: "question",
           showCancelButton: true,
           confirmButtonText: "Sí, agregar",
           cancelButtonText: "Cancelar",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // envio sol servidor
+        }).then((r) => {
+          if (r.isConfirmed) {
             fetch("/solicitudes", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ id_destinatario: id }),
             })
               .then(async (res) => {
-                const data = await res.json();
-
-                if (!res.ok) {
-                  // Si el estado HTTP no es OK, muestro error
-                  return Swal.fire(
-                    "Error",
-                    data.error || data.message || "No se pudo enviar la solicitud",
-                    "error"
-                  );
+                const contentType = res.headers.get("content-type") || "";
+                if (!res.ok || !contentType.includes("application/json")) {
+                  const errorText = await res.text();
+                  throw new Error(errorText || "Respuesta inesperada del servidor");
                 }
 
-                // Si la respuesta fue OK, muestro exito
+                const data = await res.json();
                 Swal.fire("¡Solicitud enviada!", "", "success");
               })
               .catch(() =>
@@ -103,14 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
               );
           }
         });
-      }
-    } catch (error) {
-      console.error(error);
-      Swal.fire({
-        icon: "error",
-        title: "Error al buscar usuarios",
-        text: error.message,
       });
-    }
-  });
+    });
+  }
 });

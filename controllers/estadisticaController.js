@@ -10,7 +10,7 @@ export const mostrarEstadisticasPerfil = async (req, res) => {
       contarComentariosRecibidos(id_usuario)
     ]);
     res.render('logueado/estadisticas', {
-      usuario: req.session.usuario,
+      usuarioSesion: req.session.usuario,
       albumes,
       imagenes,
       comentarios

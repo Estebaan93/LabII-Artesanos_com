@@ -1,7 +1,7 @@
 // public/js/notificaciones.js
 
 ////notificaciones.js
-console.log("Activo");
+console.log("Activo notificaciones");
 document.addEventListener("DOMContentLoaded", () => {
   const socket = io();
   const usuarioId = window.usuarioId;

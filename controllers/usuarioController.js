@@ -115,7 +115,7 @@ export const listarUsuariosParaSolicitar = async (req, res) => {
   try {
     const id_usuario = req.session.usuario.id_usuario;
     const usuarios = await obtenerUsuariosExcepto(id_usuario);
-    res.render('logueado/lista', { usuarios }); // ← ahora apunta a la carpeta correcta
+    res.render('logueado/lista', { usuarios }); //  ahora apunta a la carpeta correcta
   } catch (error) {
     console.error('Error listando usuarios:', error);
     res.status(500).send('Error al obtener usuarios');
@@ -125,15 +125,37 @@ export const listarUsuariosParaSolicitar = async (req, res) => {
 // API para buscar usuarios por nombre (usado para autocomplete o búsqueda con JS)
 
 export const apiBuscarUsuarios = async (req, res) => {
+  if (!req.session?.usuario) {
+    return res.status(401).json({ error: "No autenticado" });
+  }
+
   try {
     const id_usuario = req.session.usuario.id_usuario;
     const nombre = req.query.nombre || '';
 
     const usuarios = await buscarUsuariosDisponibles(id_usuario, nombre);
-
     res.json(usuarios);
   } catch (error) {
     console.error("Error en apiBuscarUsuarios:", error);
     res.status(500).json({ error: "Error al buscar usuarios" });
+  }
+};
+
+
+//Explorar Usuarios nuevos
+export const explorarUsuarios = async (req, res) => {
+  try {
+    const id_usuario = req.session.usuario.id_usuario;
+
+    // Buscar todos los usuarios disponibles (sin filtro por nombre)
+    const usuarios = await buscarUsuariosDisponibles(id_usuario, '');
+
+    res.render('logueado/explorar', {
+      usuarios,
+      usuarioSesion: req.session.usuario
+    });
+  } catch (error) {
+    console.error("Error al listar usuarios disponibles:", error);
+    res.status(500).send("Error al listar usuarios");
   }
 };
