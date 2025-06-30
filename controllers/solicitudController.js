@@ -82,7 +82,7 @@ export const responderSolicitudAmistad = async (req, res) => {
       });
     }
 
-    res.status(200).json({ mensaje: 'Solicitud procesada con éxito' });
+    res.status(200).json({ok:true, mensaje: 'Solicitud procesada con éxito' });
 
   } catch (error) {
     console.error('Error al responder solicitud de amistad:', error);
