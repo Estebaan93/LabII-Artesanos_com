@@ -27,3 +27,5 @@ export const agregarAmistad = async (id_usuario, id_amigo) => {
     [id_usuario, id_amigo]
   );
 };
+
+

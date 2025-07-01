@@ -1,8 +1,8 @@
 // controllers/solicitudController.js
 
-import { insertarSolicitudAmistad, actualizarSolicitudAmistadPorId, obtenerUsuariosDeSolicitud, obtenerEstadoAmistad, obtenerEstadoSolicitudDirecta} from "../models/solicitudModel.js";
-import { insertarNotificacionAmistad } from "../models/notificacionModel.js";
-import { emitirNotificacion } from "../index.js";
+import {insertarSolicitudAmistad, actualizarSolicitudAmistadPorId, obtenerUsuariosDeSolicitud, obtenerEstadoAmistad, obtenerEstadoSolicitudDirecta} from "../models/solicitudModel.js";
+import {insertarNotificacionAmistad } from "../models/notificacionModel.js";
+import {emitirNotificacion } from "../index.js";
 import {agregarAmistad} from '../models/amistadModel.js'
 
 export const crearSolicitudAmistad = async (req, res) => {
@@ -50,6 +50,7 @@ export const crearSolicitudAmistad = async (req, res) => {
 
 
 
+
 export const responderSolicitudAmistad = async (req, res) => {
   try {
     const { id_solicitud, accion } = req.body;
@@ -60,35 +61,35 @@ export const responderSolicitudAmistad = async (req, res) => {
     if (accion === "aceptar") {
       const { id_usuario: emisor, id_destinatario: receptor } = await obtenerUsuariosDeSolicitud(id_solicitud);
 
+      // Solo quien acepta agrega amistad hacia el otro
       const id_aceptador = id_usuario_sesion;
+      const id_agregado = id_aceptador === emisor ? receptor : emisor;
 
-      // El otro usuario (quien NO está aceptando) es quien debe ser notificado
-      const id_para_notificar = id_aceptador === emisor ? receptor : emisor;
+      // Insertar una sola dirección
+      await agregarAmistad(id_aceptador, id_agregado);
 
-      // Crear amistad bidireccional
-      await agregarAmistad(id_usuario_sesion, id_para_notificar);
-
-      // Insertar notificación
+      // Notificación
       await insertarNotificacionAmistad({
         id_solicitud,
-        id_usuario: id_para_notificar
+        id_usuario: id_agregado
       });
 
-      // Emitir notificación
-      await emitirNotificacion(id_para_notificar, {
+      await emitirNotificacion(id_agregado, {
         tipo: "aceptacion",
         remitente: req.session.usuario.nombre,
         mensaje: `${req.session.usuario.nombre} aceptó tu solicitud de amistad.`
       });
     }
 
-    res.status(200).json({ok:true, mensaje: 'Solicitud procesada con éxito' });
+    res.status(200).json({ ok: true, mensaje: 'Solicitud procesada con éxito' });
 
   } catch (error) {
     console.error('Error al responder solicitud de amistad:', error);
     res.status(500).json({ error: 'Error interno al responder solicitud' });
   }
 };
+
+
 
 
 /*export const responderSolicitudAmistad = async (req, res) => {

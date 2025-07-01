@@ -102,25 +102,24 @@ export async function buscarUsuariosDisponibles(id_usuario, nombre) {
     WHERE u.estado = 1
       AND (u.nombre LIKE ? OR u.apellido LIKE ?)
       AND u.id_usuario != ?
+      -- No mostrar usuarios a quienes yo YA les envié solicitud
       AND u.id_usuario NOT IN (
-        SELECT amigo_id FROM amigos WHERE id_usuario = ? AND estado = 1
-      )
-      AND u.id_usuario NOT IN (
-        SELECT 
-          CASE 
-            WHEN id_usuario = ? THEN id_destinatario 
-            WHEN id_destinatario = ? THEN id_usuario 
-          END
+        SELECT id_destinatario
         FROM solicitud_amistad
-        WHERE (id_usuario = ? OR id_destinatario = ?) AND accion = 'pendiente'
+        WHERE id_usuario = ? AND accion = 'pendiente'
+      )
+      -- No mostrar usuarios a quienes yo ya agregué como amigo (unidireccional)
+      AND u.id_usuario NOT IN (
+        SELECT amigo_id
+        FROM amigos
+        WHERE id_usuario = ? AND estado = 1
       )
     `,
     [
       `%${nombre}%`, `%${nombre}%`,
       id_usuario,
-      id_usuario,
-      id_usuario, id_usuario,
-      id_usuario, id_usuario
+      id_usuario,  // Para solicitudes
+      id_usuario   // Para amistades
     ]
   );
 
