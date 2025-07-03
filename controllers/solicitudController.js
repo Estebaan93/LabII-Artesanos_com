@@ -3,7 +3,7 @@
 import {insertarSolicitudAmistad, actualizarSolicitudAmistadPorId, obtenerUsuariosDeSolicitud, obtenerEstadoAmistad, obtenerEstadoSolicitudDirecta} from "../models/solicitudModel.js";
 import {insertarNotificacionAmistad } from "../models/notificacionModel.js";
 import {emitirNotificacion } from "../index.js";
-import {agregarAmistad} from '../models/amistadModel.js'
+import {agregarAmistad} from '../models/amistadModel.js';
 
 export const crearSolicitudAmistad = async (req, res) => {
   try {
@@ -49,43 +49,53 @@ export const crearSolicitudAmistad = async (req, res) => {
 };
 
 
-
-
 export const responderSolicitudAmistad = async (req, res) => {
   try {
     const { id_solicitud, accion } = req.body;
-    const id_usuario_sesion = req.session.usuario.id_usuario;
 
-    await actualizarSolicitudAmistadPorId({ id_solicitud, accion });
-
-    if (accion === "aceptar") {
-      const { id_usuario: emisor, id_destinatario: receptor } = await obtenerUsuariosDeSolicitud(id_solicitud);
-
-      // Solo quien acepta agrega amistad hacia el otro
-      const id_aceptador = id_usuario_sesion;
-      const id_agregado = id_aceptador === emisor ? receptor : emisor;
-
-      // Insertar una sola dirección
-      await agregarAmistad(id_aceptador, id_agregado);
-
-      // Notificación
-      await insertarNotificacionAmistad({
-        id_solicitud,
-        id_usuario: id_agregado
-      });
-
-      await emitirNotificacion(id_agregado, {
-        tipo: "aceptacion",
-        remitente: req.session.usuario.nombre,
-        mensaje: `${req.session.usuario.nombre} aceptó tu solicitud de amistad.`
-      });
+    const accionesValidas = ["aceptar", "rechazar", "cancelar", "eliminar"];
+    if (!accionesValidas.includes(accion)) {
+      return res.status(400).json({ error: "Acción inválida" });
     }
 
-    res.status(200).json({ ok: true, mensaje: 'Solicitud procesada con éxito' });
+    const resultado = await actualizarSolicitudAmistadPorId({ id_solicitud, accion });
 
+    if (resultado === 0) {
+      return res.status(404).json({ error: "Solicitud no encontrada" });
+    }
+
+    const usuarios = await obtenerUsuariosDeSolicitud(id_solicitud);
+    if (!usuarios) {
+      return res
+        .status(404)
+        .json({ error: "Usuarios de solicitud no encontrados" });
+    }
+
+    const { id_usuario: id_remitente } = usuarios;
+
+    if (accion === "aceptar") {
+      await insertarNotificacionAmistad({
+        id_solicitud,
+        id_usuario: id_remitente,
+        tipo: "aceptacion",
+      });
+
+      const nombreAceptador = req.session.usuario.nombre;
+
+      emitirNotificacion(id_remitente, {
+        tipo: "aceptacion",
+        remitente: nombreAceptador,
+        mensaje: `${nombreAceptador} ha aceptado tu solicitud de amistad.`,
+      });
+
+      // *** Ya NO se crea álbum físico de amistad ***
+      // La galería de amistad es virtual (ver lógica en listarAlbumes)
+    }
+
+    res.json({ ok: true, mensaje: `Solicitud ${accion} correctamente.` });
   } catch (error) {
-    console.error('Error al responder solicitud de amistad:', error);
-    res.status(500).json({ error: 'Error interno al responder solicitud' });
+    console.error("Error en responder solicitud amistad:", error);
+    res.status(500).json({ error: "No se pudo actualizar la solicitud." });
   }
 };
 

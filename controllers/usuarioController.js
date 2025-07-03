@@ -141,21 +141,19 @@ export const apiBuscarUsuarios = async (req, res) => {
   }
 };
 
+//Explorar usuarios nuevos
+export const explorarUsuarios= async (req, res)=>{
+  try{
+    const id_usuario= req.session.usuario.id_usuario;
 
-//Explorar Usuarios nuevos
-export const explorarUsuarios = async (req, res) => {
-  try {
-    const id_usuario = req.session.usuario.id_usuario;
-
-    // Buscar todos los usuarios disponibles (sin filtro por nombre)
-    const usuarios = await buscarUsuariosDisponibles(id_usuario, '');
-
-    res.render('logueado/explorar', {
+    //Buscar todos los usuarios dispnibles
+    const usuarios= await buscarUsuariosDisponibles(id_usuario, '');
+    res.render('logueado/explorar',{
       usuarios,
       usuarioSesion: req.session.usuario
     });
-  } catch (error) {
-    console.error("Error al listar usuarios disponibles:", error);
+  }catch(error){
+    console.error(`Error al listar usuarios disponibles, ${error}`);
     res.status(500).send("Error al listar usuarios");
   }
 };
