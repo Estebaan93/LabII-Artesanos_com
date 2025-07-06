@@ -16,7 +16,7 @@ export const obtenerNotificacionesNoLeidas = async (id_usuario) => {
   FROM notificacion_amistad na
   JOIN solicitud_amistad sa ON na.id_solicitud = sa.id_solicitud
   JOIN usuario u ON sa.id_usuario = u.id_usuario
-  WHERE na.id_usuario = ? AND sa.accion = 'pendiente'
+  WHERE na.id_usuario = ? AND sa.accion = 'pendiente' AND na.leida = 0
 
   UNION ALL
 
@@ -31,8 +31,8 @@ export const obtenerNotificacionesNoLeidas = async (id_usuario) => {
     sa.id_solicitud AS ref_id
   FROM notificacion_amistad na
   JOIN solicitud_amistad sa ON na.id_solicitud = sa.id_solicitud
-  JOIN usuario u2 ON sa.id_usuario = u2.id_usuario  -- REMITENTE (quien aceptó)
-  WHERE na.id_usuario = ? AND sa.accion = 'aceptar' AND sa.id_destinatario = ?
+  JOIN usuario u2 ON sa.id_destinatario = u2.id_usuario  -- REMITENTE (quien aceptó)
+  WHERE na.id_usuario = ? AND sa.accion = 'aceptar' AND na.leida = 0
 
   UNION ALL
 
