@@ -79,8 +79,21 @@ document.addEventListener("DOMContentLoaded", () => {
       li.querySelector(".btn-leer").addEventListener("click", () => {
         marcarComoLeida(notif.id_notificacion, li);
       });
-    } else {
-   
+    } else if(notif.tipo==="comentario"){
+      li.innerHTML= `
+        <span>
+          <strong>${notif.remitente}</strong> comentó en tu imagen:<br>
+          "${notif.comentario || notif.mensaje || ''}"
+        </span>
+        <br>
+        <a href="${notif.link || '#'}" target="_blank">Ver imagen</a>
+        <button class="btn-leer">Marcar como leída</button>
+      `;
+      li.querySelector(".btn-leer").addEventListener("click", () => {
+      marcarComoLeida(notif.id_notificacion, li);
+    });
+      
+    }else{
       li.textContent = notif.mensaje || "Notificación";
     }
 

@@ -14,10 +14,11 @@ export const obtenerComentariosDeImagen = async (id_imagen) => {
   return rows;
 };
 
-// Agregar nuevo comentario
+// Agregar nuevo comentario y devolver el id insertado
 export const agregarComentario = async ({ id_imagen, id_usuario, descripcion }) => {
-  await pool.query(
+  const [result] = await pool.query(
     `INSERT INTO comentarios (id_imagen, id_usuario, descripcion) VALUES (?, ?, ?)`,
     [id_imagen, id_usuario, descripcion]
   );
+  return result.insertId; // Devuelve el ID del comentario creado
 };
