@@ -42,10 +42,15 @@ export const crearComentario = async (req, res) => {
       }
     }
     
+    //Armar el link
+    //const link= id_album ? `/albumes/${id_album}#img-${id_imagen}` : `/albumes#img-${id_imagen}`;
+
     //Insertar y emitir notificaciones (si no es auto comentario) 
     if(autorId && autorId!== id_usuario){
       //Guardamos en la BD la notificaio
       await insertarNotificacionContenido({id_comentario, id_usuario: autorId});
+
+      console.log({ id_album, id_imagen, autorId, descripcion });
 
       //Emitimos noti en tiempo real
       emitirNotificacion(autorId,{
