@@ -48,7 +48,7 @@ export const obtenerNotificacionesNoLeidas = async (id_usuario) => {
   FROM notificacion_contenido nc
   JOIN comentarios c ON nc.id_comentario = c.id_comentario
   JOIN usuario u ON c.id_usuario = u.id_usuario
-  WHERE nc.id_usuario = ? -- nc.id_notificacion IS NOT NULL
+  WHERE nc.id_notificacion IS NOT NULL
   ORDER BY id_notificacion DESC
 `;
 
